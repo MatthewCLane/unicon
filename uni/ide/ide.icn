@@ -1297,10 +1297,14 @@ $endif
    method on_ivib(ev)
       local L := []
       if CurrentTabItem().label==="Untitled" then {
-	       system("ivib " || \tab_label, L) | uidlog.MsgBox.set_contents(L)
+	       system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
 	       }
+      else if CurrentTabItem().label==="scratch" then {
+	       if not system("ivib &", L) then
+            uidlog.MsgBox.set_contents(["System Failed"])
+               }
       else {
-	       if not system("ivib " || CurrentTabItem().label, L) then
+	       if not system("ivib " || CurrentTabItem().label || "&", L) then
             uidlog.MsgBox.set_contents(["System Failed"])
 	       }
       updatefile(CurrentTabItem().label)

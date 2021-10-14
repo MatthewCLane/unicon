@@ -1023,13 +1023,13 @@ class Main : CommonDialog(
       local NewL := []
       op_quit()
       if self.canvas.filename==="Untitled" then {
-         system("ui " || \self.canvas.filename, NewL) | uidlog.MsgBox.set_contents(NewL)
+         system("ui " || \self.canvas.filename || "&", NewL) | uidlog.MsgBox.set_contents(NewL)
          handle_closefile()
 #         handle_openfile( , self.canvas.filename)
       }
       else {
-         if not system("ui " || self.canvas.filename) then
-            uidlog.MsgBox.set_contents(["System Failed"])
+         if not system("ui " || \self.canvas.filename || "&") then
+	   system("ui &")
       }
    end
 
