@@ -1023,15 +1023,20 @@ class Main : CommonDialog(
       local NewL := []
       if \self.canvas.modified then
          self.save_if_wanted() | fail
+      write("Attempting to open file: ", self.canvas.filename)
       if self.canvas.filename==="Untitled" then {
          system("ui " || \self.canvas.filename || "&", NewL) | uidlog.MsgBox.set_contents(NewL)
          handle_closefile()
 #         handle_openfile( , self.canvas.filename)
       }
       else {
-         if not system("ui " || \self.canvas.filename || "&") then
-	   system("ui &")
+         if not system("ui " || \self.canvas.filename || "&") then {
+             write("Error: file not found")
+             write("Opening scratch file in UI")
+             system("ui &")
+         }
       }
+      write("Unicon IDE opened.")
    end
 
    #
