@@ -415,8 +415,8 @@ class UIDE : Dialog(
       self.add(ClassTabSet)
 
       IvibTabSet := BufferTabSet()
-      IvibTabSet.set_pos("0", "25%")
-      IvibTabSet.set_size("150", "100%-160")
+      IvibTabSet.set_pos("0", "110%")
+      IvibTabSet.set_size("0", "0")
       tab_item_5 := TabItem()
       tab_item_5.set_label("IVIB")
 #      IvibFile := Main()
