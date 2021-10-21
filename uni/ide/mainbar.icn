@@ -547,7 +547,7 @@ $endif
       uidlog.FileTabSet.set_size("85%", size_y)
       uidlog.ClassTabSet.set_pos("0", pos_y)
       uidlog.ClassTabSet.set_size("15%", size_y)
-      uidlog.ClassTabSet.set_pos("0", "110%")
+      uidlog.IvibTabSet.set_pos("0", "110%")
       uidlog.MsgBox.set_pos("2", "2")
       uidlog.MsgBox.set_size("100%-4", "100%-4")
       uidlog.EditBox.set_pos("2", "2")
