@@ -1021,7 +1021,8 @@ class Main : CommonDialog(
    #
    method op_handleUI()
       local NewL := []
-      op_quit()
+      if \self.canvas.modified then
+         self.save_if_wanted() | fail
       if self.canvas.filename==="Untitled" then {
          system("ui " || \self.canvas.filename || "&", NewL) | uidlog.MsgBox.set_contents(NewL)
          handle_closefile()
