@@ -1027,13 +1027,13 @@ class Main : CommonDialog(
       if self.canvas.filename==="Untitled" then {
          system("ui " || \self.canvas.filename || "&", NewL) | uidlog.MsgBox.set_contents(NewL)
          handle_closefile()
-#         handle_openfile( , self.canvas.filename)
+         handle_openfile( , self.canvas.filename)
       }
       else {
          if not system("ui " || \self.canvas.filename || "&") then {
-             write("Error: file not found")
-             write("Opening scratch file in UI")
-             system("ui &")
+            write("Error: file not found")
+            write("Opening scratch file in UI")
+	          system("ui &")
          }
       }
       write("Unicon IDE opened.")
@@ -1075,7 +1075,9 @@ class Main : CommonDialog(
          "\^w" : op_save_as()
          "\^d" : op_dialog()
          "\^n" : op_new()
+         ###################### (>'-')>
          "\^i" : op_handleUI()
+         ##############################
          "\^u" : op_select_up()
          "\^s" : if /save.is_shaded_flag then op_save()
          "\^z" : if /undo.is_shaded_flag then op_Undo()
@@ -1166,6 +1168,8 @@ class Main : CommonDialog(
       new.set_label_right("Ctrl-n")
       file.add(new)
 
+      #
+      # (>'-')>
       #
       # Menu item button for switching to Unicon IDE.
       #

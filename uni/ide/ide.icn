@@ -52,7 +52,7 @@ class IDE (
       local f, L, line, d
       d := pdialog()
       d.show_modal()
-
+ 
       # prn_name and copies_num are returned from PrintDialog().
       if copies_num === &null then {
          uidlog.MsgBox.set_contents(["Printing canceled."])
@@ -100,34 +100,35 @@ class IDE (
          which_tab, c, filedirectory
 
       if /filename then {
-         $ifdef _UNIX
-	           fd := HFileDialog()
+$ifdef _UNIX
+	 fd := HFileDialog()
 
-	         # set subdialog's position based on ide's position
-	         # assume subdialog is 400x400
-	           dwidth := WAttrib(uidlog.win, "width")
-	           dheight := WAttrib(uidlog.win, "height")
-	           dposx :=  WAttrib(uidlog.win, "posx") + dwidth/2 - 200
-	           dposy :=  WAttrib(uidlog.win, "posy") + dheight/2 - 200
-	         # L := []; every put(L, QueryPointer(uidlog.win))
-	         # mousex := L[1]; mousey := L[2]
-	           fd.attrib("pos=" || dposx || "," || dposy)
+	 # set subdialog's position based on ide's position
+	 # assume subdialog is 400x400
+	 dwidth := WAttrib(uidlog.win, "width")
+	 dheight := WAttrib(uidlog.win, "height")
+	 dposx :=  WAttrib(uidlog.win, "posx") + dwidth/2 - 200
+	 dposy :=  WAttrib(uidlog.win, "posy") + dheight/2 - 200
+	 # L := []; every put(L, QueryPointer(uidlog.win))
+	 # mousex := L[1]; mousey := L[2]
+	 fd.attrib("pos=" || dposx || "," || dposy)
 
-             fd.set_directory(CurrentTabItem().filedirectory)
-	           fd.show_modal()
-	           filename := fd.get_result() | fail
-	           filedirectory := fd.get_directory()
-         $else
-	           filename :=
-	             WinOpenDialog(uidlog.win, "Open File ...", "", 5,,,
-			            chdir(CurrentTabItem().filedirectory)) | fail
+         fd.set_directory(CurrentTabItem().filedirectory)
+	 fd.show_modal()
+	 filename := fd.get_result() | fail
+	 filedirectory := fd.get_directory()
+$else
+	 filename :=
+	    WinOpenDialog(uidlog.win, "Open File ...", "", 5,,,
+			  chdir(CurrentTabItem().filedirectory)
+                         ) | fail
 
-         $endif
-	        }
+$endif
+	 }
       if /filename | filename=="" | filename[-1]==("\\"|"/") then
          return \uidlog.MsgBox.set_contents(["Error opening file \"" ||
-		      file_name(filename) || "\""])
-         # uidlog.MsgBox.set_contents("Enter File Name")
+					     file_name(filename) || "\""])
+#      uidlog.MsgBox.set_contents("Enter File Name")
 
       if  filename[-2:0]==(".*") then filename := filename[1:-2]
       tab_label := file_name(filename)
@@ -135,31 +136,31 @@ class IDE (
       file_contents := []
       nchars := 0
       if ufile := open(filename, "ru") then
-         while line := read(ufile) do {
-	          if line[-1] == "\^m" then line := line[1:-1]
-	          put(file_contents, line)
-	          nchars +:= *line + 1
-	          }
+      while line := read(ufile) do {
+	 if line[-1] == "\^m" then line := line[1:-1]
+	 put(file_contents, line)
+	 nchars +:= *line + 1
+	 }
 
-    # We don't have a file open with the same name, so
-    # add a new tab with the file name
+      # We don't have a file open with the same name, so
+      # add a new tab with the file name
       if not member(opened_files_set, filename) then {
-	       if is_binary(filename) then
-	          uidlog.MsgBox.set_contents(["Cannot open binary "||filename])
-	       else {
-	          new_tabitem(,1,file_name(filename),file_contents, filedirectory)
-             \uidlog.MsgBox.set_contents(["opened " || filename || ", " ||
-				       *file_contents || " lines, " ||
-				         nchars || " characters"])
-	                uidlog.FileTabSet.set_which_one(CurrentTabItem())
-	          handle_update()
-	          insert(opened_files_set, filename)
-	          }
-	       }
+	 if is_binary(filename) then
+	    uidlog.MsgBox.set_contents(["Cannot open binary "||filename])
+	 else {
+	    new_tabitem(,1,file_name(filename),file_contents, filedirectory)
+            \uidlog.MsgBox.set_contents(["opened " || filename || ", " ||
+					 *file_contents || " lines, " ||
+					 nchars || " characters"])
+	    uidlog.FileTabSet.set_which_one(CurrentTabItem())
+	    handle_update()
+	    insert(opened_files_set, filename)
+	    }
+	 }
       else {
-	       c := uidlog.FileTabSet.get_tabitem(file_name(filename))
-	       uidlog.FileTabSet.set_which_one(\c)
-	       }
+	 c := uidlog.FileTabSet.get_tabitem(file_name(filename))
+	 uidlog.FileTabSet.set_which_one(\c)
+	 }
       CurrentTabItem().filename := file_name(filename)
       CurrentTabItem().filedirectory := filename[1:-*CurrentTabItem().filename]
       uidlog.FileBrowser.addreplace(CurrentEditBox().contents,
@@ -583,7 +584,7 @@ $endif
       # This will save it if it is modified.
       on_makeexe_btn()
 
-      if \(CurrentTabItem().filedirectory) &
+      if \(CurrentTabItem().filedirectory) & 
          CurrentTabItem().filedirectory ~== "" then
 	  fdir := chdir(CurrentTabItem().filedirectory)
       else fdir := chdir(".")
@@ -617,7 +618,7 @@ $endif
          scpt := " "
          }
       # using script is currently hit-and-miss 09/23/14
-
+      
       # path search for local terminal, use it
       if pathfind("xterm", getenv("PATH")) then {
          if (fun := open("uname","pr")) &   # Apple xterm option
@@ -632,24 +633,24 @@ $endif
          }
       else if pathfind("konsole", getenv("PATH")) then {
          console := "konsole --vt_sz 70x18 "
-         cmd2 := console || \cmd || " &> " || wiconlog
+         cmd2 := console || \cmd || " &> " || wiconlog 
          }
       else if pathfind("mate-terminal", getenv("PATH")) then {
          console := "mate-terminal -e "
-         cmd2 := console || \cmd || " &> " || wiconlog
+         cmd2 := console || \cmd || " &> " || wiconlog 
          }
       else if pathfind("gnome-terminal", getenv("PATH")) then {
          console := "gnome-terminal -- "
-         cmd2 := console || \cmd || " &> " || wiconlog
+         cmd2 := console || \cmd || " &> " || wiconlog 
          }
       else if pathfind("lxterminal", getenv("PATH")) then {
          console := "lxterminal -e "
-         cmd2 := console || \cmd || " &> " || wiconlog
+         cmd2 := console || \cmd || " &> " || wiconlog 
          }
       else if pathfind("xfce4-terminal", getenv("PATH")) then {
          console := "xfce4-terminal --hold -e "
-         cmd2 := console || \cmd || " &> " || wiconlog
-         }
+         cmd2 := console || \cmd || " &> " || wiconlog 
+         }      
       else #just run without "console || ..."
             cmd2 := \cmd || " &> " || wiconlog
       }
@@ -661,7 +662,7 @@ $endif
       if find(".icn", CurrentTabItem().label) then
          cmd2 := "wiconx -l" || wiconlog || " " || quotes(fdir || cmd)
       }
-
+      
       uidlog.MsgBox.set_contents(["Launching the program in its own window.",
 		"Finish the run and close that window to return to the IDE."
 		])
@@ -681,7 +682,7 @@ $endif
       showanyerror(s, [], 0)
       }
    end
-
+   
    method CurrentDevBox()
       local ti
       ti := CurrentDevItem() | stop ("No Current DevTabItem")
@@ -731,7 +732,7 @@ $endif
       if \args2 then {
          if /filedirectory then
             filedirectory := chdir()
-
+         
          pth := udbprefix || pth || " -line"
 
          pth ||:= " "||filedirectory|| PATHSEP || args2
@@ -780,7 +781,7 @@ $endif
             }
          }
       showanyerror(wiconlog, dlst)
-
+      
       uidlog.MsgBox.goto_line(*dlst,1)
    end
 
@@ -1297,66 +1298,14 @@ $endif
    method on_ivib(ev)
       local L := []
       if CurrentTabItem().label==="Untitled" then {
-	       system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
-	       }
-      else if CurrentTabItem().label==="scratch" then {
-	       if not system("ivib &", L) then
-            uidlog.MsgBox.set_contents(["System Failed"])
-               }
+	 system("ivib " || \tab_label, L) | uidlog.MsgBox.set_contents(L)
+	 handle_closefile()
+	 handle_openfile( , tab_label)
+	 }
       else {
-	       if not system("ivib " || CurrentTabItem().label || "&", L) then
+	 if not system("ivib " || CurrentTabItem().label, L) then
             uidlog.MsgBox.set_contents(["System Failed"])
-	       }
-      updatefile(CurrentTabItem().label)
-   end
-
-   #
-   # Update file method: Update IDE file to show changes from ivib.
-   #
-   method updatefile(filename)
-      #local
-      handle_closefile()
-      if /filename | filename=="" | filename[-1]==("\\"|"/") then {
-         uidlog.MsgBox.set_contents(["Error - file name missing"])
-         handle_openfile( , filename)
-         }
-      if  filename[-2:0]==(".*") then filename := filename[1:-2]
-      tab_label := file_name(filename)
-      found := 1
-      file_contents := []
-      nchars := 0
-      if ufile := open(filename, "ru") then
-      while line := read(ufile) do {
-        if line[-1] == "\^m" then line := line[1:-1]
-        put(file_contents, line)
-        nchars +:= *line + 1
-        }
-
-    # We don't have a file open with the same name, so
-    # add a new tab with the file name
-      if not member(opened_files_set, filename) then {
-        if is_binary(filename) then
-          uidlog.MsgBox.set_contents(["Cannot open binary "||filename])
-        else {
-          new_tabitem(,1,file_name(filename),file_contents, filedirectory)
-          \uidlog.MsgBox.set_contents(["opened " || filename || ", " ||
-              *file_contents || " lines, " ||
-              nchars || " characters"])
-          uidlog.FileTabSet.set_which_one(CurrentTabItem())
-          handle_update()
-          insert(opened_files_set, filename)
-          }
-        }
-      else {
-        c := uidlog.FileTabSet.get_tabitem(file_name(filename))
-        uidlog.FileTabSet.set_which_one(\c)
-        }
-      CurrentTabItem().filename := file_name(filename)
-      CurrentTabItem().filedirectory := filename[1:-*CurrentTabItem().filename]
-      uidlog.FileBrowser.addreplace(CurrentEditBox().contents,
-          uidlog.FileTabSet.which_one.filename, 0)
-      uidlog.FileTabSet.resize()
-      uidlog.menubar.set_font()
+	 }
    end
 
    #
