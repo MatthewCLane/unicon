@@ -20,7 +20,8 @@ global targs,browser,
    opened_files_set,
    tab_label,
    fileCompiled, overwrite,
-   lst, ide, file_contents, dialogFor
+   lst, ide, file_contents, dialogFor,
+   ivib_maindialog
 
 #
 # Class IDE
@@ -1297,15 +1298,24 @@ $endif
    method on_ivib(ev)
       local L := []
       if CurrentTabItem().label==="Untitled" then {
-	       system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
+	       #system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
+               self.ivib_maindialog := Main()
+	       #self.ivib_maindialog.custom_show(args)
+
 	       }
       else if CurrentTabItem().label==="scratch" then {
-	       if not system("ivib &", L) then
-            uidlog.MsgBox.set_contents(["System Failed"])
+	       #if not system("ivib &", L) then
+            #uidlog.MsgBox.set_contents(["System Failed"])
+	       self.ivib_maindialog := Main()
+               #self.ivib_maindialog.custom_show(args)
+
                }
       else {
-	       if not system("ivib " || CurrentTabItem().label || "&", L) then
-            uidlog.MsgBox.set_contents(["System Failed"])
+	       #if not system("ivib " || CurrentTabItem().label || "&", L) then
+            #uidlog.MsgBox.set_contents(["System Failed"])
+               self.ivib_maindialog := Main()
+               self.ivib_maindialog.custom_show(CurrentTabItem().label || L)
+
 	       }
       updatefile(CurrentTabItem().label)
    end
