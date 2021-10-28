@@ -2,7 +2,7 @@ import gui
 $include "guih.icn"
 #link graphics
 
-link io, noncase, findre, printdlg
+link io, noncase, findre, printdlg, "ivib/ivib"
 
 # $define lpr "enscript -b \" \" -1 -Plexnormal"
 #----------------------------------------------
