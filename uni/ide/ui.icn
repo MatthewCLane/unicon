@@ -33,7 +33,7 @@ $include "guih.icn"
 link mainbar
 link getpaths
 link classbrowser
-link enqueue, preferences
+link enqueue, preferences               #>#
 link stddlg
 link "ivib/ivib"
 
@@ -98,7 +98,7 @@ class UIDE : Dialog(
       menubar.Menubar()
       ide.Toolbar(pnlToolbar) #This call to add a toolbar
       FileBrowser.addreplace("file_contents", "tab_label", 0)
-      IvibFile.custom_show(args)                         #>#
+#      IvibFile.custom_show(ide.CurrentTabItem().label)        #>#
       MsgBox.set_contents([\error_msg])
    end
 
@@ -421,13 +421,13 @@ class UIDE : Dialog(
       IvibTabSet.set_size("0", "0")               #>#
       tab_item_5 := TabItem()
       tab_item_5.set_label("IVIB")
-      self.IvibFile := Main()
-      IvibFile.set_pos("2", "2")
-      IvibFile.set_size("100%-4", "100%-4")
-      IvibFile.set_draw_border()
-      IvibFile.set_attribs("bg=white")
-      IvibFile.set_select_one()
-      tab_item_5.add(IvibFile)
+#      IvibFile := Main()
+#      IvibFile.set_pos("2", "2")
+#      IvibFile.set_size("100%-4", "100%-4")
+#      IvibFile.set_draw_border()
+#      IvibFile.set_attribs("bg=white")
+#      IvibFile.set_select_one()
+#      tab_item_5.add(IvibFile)
       IvibTabSet.add(tab_item_5)
       IvibTabSet.set_which_one(tab_item_5)
       self.add(IvibTabSet)
