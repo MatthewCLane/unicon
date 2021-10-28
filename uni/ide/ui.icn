@@ -16,7 +16,7 @@
 #  To do:
 #	keyboard shortcuts
 #	multiple edit regions.
-#	
+#
 ############################################################################
 #
 #  Requires:  graphics, version 2 GUI libraries, and ivib
@@ -63,8 +63,8 @@ class UIDE : Dialog(
    startfile,
    pnlToolbar, menubar,
    MsgBox, EditBox, PtyBox,
-   FileTabSet,ClassTabSet, DevTabSet,
-   FileBrowser,
+   FileTabSet,ClassTabSet, DevTabSet, IvibTabSet,
+   FileBrowser, IvibFile,
    tab_item_1, tab_item_2, tab_item_3, tab_item_4,
    ui_Preferences
    )
@@ -98,6 +98,7 @@ class UIDE : Dialog(
       menubar.Menubar()
       ide.Toolbar(pnlToolbar) #This call to add a toolbar
       FileBrowser.addreplace("file_contents", "tab_label", 0)
+#      IvibFile.custom_show(ide.CurrentTabItem().label)
       MsgBox.set_contents([\error_msg])
    end
 
@@ -214,7 +215,7 @@ class UIDE : Dialog(
 #  F7	Step		set watchpt
 #  F8	Next		set breakpt
 #  F9	Make		Run	    Compileonly Run/debug
-#  F10	Main menu		
+#  F10	Main menu
 #  F11	runtime msgs	project dlg inspect
 #  F12	compiler msgs	toggle ivib
 # alt-x = exit
@@ -367,7 +368,7 @@ class UIDE : Dialog(
 
       PtyBox := ShellETL()
       PtyBox.set_pos("2", "2")
-      PtyBox.set_size("100%-4", "100%-4") 
+      PtyBox.set_size("100%-4", "100%-4")
       PtyBox.set_draw_border()
       PtyBox.set_attribs("bg=yellowish white", "font="||fontname)
       PtyBox.set_contents([""])
@@ -388,7 +389,7 @@ class UIDE : Dialog(
       DevTabSet.add(tab_item_4)
       DevTabSet.connect(self, "change", SELECTION_CHANGED_EVENT)
       self.add(DevTabSet)
-      
+
       FileTabSet := BufferTabSet()
       FileTabSet.set_pos("150", "9%")
       FileTabSet.set_size("100%-150", "100%-160")
@@ -398,7 +399,7 @@ class UIDE : Dialog(
       FileTabSet.add(tab_item_2)
       FileTabSet.set_which_one(tab_item_2)
       self.add(FileTabSet)
-      
+
       ClassTabSet := BufferTabSet()
       ClassTabSet.set_pos("0", "9%")
       ClassTabSet.set_size("150", "100%-160")
@@ -414,7 +415,23 @@ class UIDE : Dialog(
       ClassTabSet.add(tab_item_3)
       ClassTabSet.set_which_one(tab_item_3)
       self.add(ClassTabSet)
-      
+
+      IvibTabSet := BufferTabSet()
+      IvibTabSet.set_pos("0", "110%")
+      IvibTabSet.set_size("0", "0")
+      tab_item_5 := TabItem()
+      tab_item_5.set_label("IVIB")
+#      IvibFile := Main()
+#      IvibFile.set_pos("2", "2")
+#      IvibFile.set_size("100%-4", "100%-4")
+#      IvibFile.set_draw_border()
+#      IvibFile.set_attribs("bg=white")
+#      IvibFile.set_select_one()
+#      tab_item_5.add(IvibFile)
+      IvibTabSet.add(tab_item_5)
+      IvibTabSet.set_which_one(tab_item_5)
+      self.add(IvibTabSet)
+
       pnlToolbar := Panel()
       pnlToolbar.set_pos("0", "4.5%")
       pnlToolbar.set_size("100%", "4.5%")
@@ -427,7 +444,7 @@ initially(initfile)
    self.Dialog.initially()
 
    # contains the main ide functions
-   ide := IDE(FileTabSet, ClassTabSet, FileBrowser)
+   ide := IDE(FileTabSet, ClassTabSet, IvibTabSet, FileBrowser, IvibFile)
    uidlog := self
    menubar := Mainbar(UProject())
    startfile := initfile
@@ -518,7 +535,7 @@ end
 #Accel|null|Event Handlers|list|0|Class Variable|integer|1|Parent Compo
 #nent|1|Children|list|1|class|CanvasTabItem|28|Parent Canvas|1|Name|str
 #ing|tab_item_2|Class Name|string|TabItem|Import Name|string|gui|X Fix|
-#null|Y Fix|null|W Fix|null|H Fix|null|W Default|null|H Default|null|X 
+#null|Y Fix|null|W Fix|null|H Fix|null|W Default|null|H Default|null|X
 #Spec|integer|0|Y Spec|integer|0|W Spec|string|100%|H Spec|string|100%|
 #X Align|string|l|Y Align|string|t|Is shaded|null|Is Button Subclass|nu
 #ll|Draw Border|null|Attribs|list|0|Tooltip|null|Accel|null|Event Handl
@@ -548,7 +565,7 @@ end
 #Children|list|1|class|CanvasTree|29|Parent Canvas|1|Name|string|FileBr
 #owser|Class Name|string|ClassBrowser|Import Name|string|gui|X Fix|null
 #|Y Fix|null|W Fix|null|H Fix|null|W Default|null|H Default|null|X Spec
-#|string|2|Y Spec|string|2|W Spec|string|100%-4|H Spec|string|100%-4|X 
+#|string|2|Y Spec|string|2|W Spec|string|100%-4|H Spec|string|100%-4|X
 #Align|string|l|Y Align|string|t|Is shaded|null|Is Button Subclass|null
 #|Draw Border|integer|1|Attribs|list|1|string|bg=white|Tooltip|null|Acc
 #el|null|Event Handlers|list|0|Class Variable|integer|1|Parent Componen
