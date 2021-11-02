@@ -1,4 +1,3 @@
-package ivib
 #
 # $Id: canvastreedialog.icn,v 1.2 2006-07-09 23:43:13 rparlett Exp $
 #
@@ -15,7 +14,7 @@ import gui
 #
 #
 class CanvasTreeDialog : CanvasComponentDialog(
-   c,                       #         
+   c,                       #
    show_root,
    show_root_handles,
    select_group             #

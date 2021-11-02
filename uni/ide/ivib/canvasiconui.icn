@@ -1,4 +1,3 @@
-package ivib
 #
 # $Id: canvasiconui.icn,v 1.2 2006-07-09 23:43:12 rparlett Exp $
 #
@@ -21,7 +20,7 @@ class CanvasIconUI : BasicCanvasComponentUI()
    end
 
    initially()
-      self.BasicCanvasComponentUI.initially("Image", 
+      self.BasicCanvasComponentUI.initially("Image",
                                             "Icon",
                                             $include "icon/icn6.icon"
                                             )

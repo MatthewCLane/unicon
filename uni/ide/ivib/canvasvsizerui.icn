@@ -1,4 +1,3 @@
-package ivib
 #
 # $Id: canvasvsizerui.icn,v 1.2 2006-07-09 23:43:13 rparlett Exp $
 #
@@ -19,7 +18,7 @@ class CanvasVSizerUI : BasicCanvasComponentUI()
    end
 
    initially()
-      self.BasicCanvasComponentUI.initially("Separators", 
+      self.BasicCanvasComponentUI.initially("Separators",
                                             "VSizer"
                                             )
 end

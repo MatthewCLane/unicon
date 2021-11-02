@@ -1,4 +1,3 @@
-package ivib
 #
 # $Id: basiccanvascomponentui.icn,v 1.1 2004-02-12 16:42:29 rparlett Exp $
 #
@@ -36,7 +35,7 @@ class BasicCanvasComponentUI : CanvasComponentUI(category, name, icon)
       return n
    end
 
-   method get_button() 
+   method get_button()
       local b
       if /icon then
          fail

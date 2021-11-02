@@ -1,4 +1,3 @@
-package ivib
 #
 # $Id: gridset.icn,v 1.2 2006-07-09 23:43:13 rparlett Exp $
 #
@@ -21,7 +20,7 @@ $define GRID_TOLERANCE 15
 # A line of GridElements.
 #
 class GridLine(
-   avg,                     # The average of the x or y values 
+   avg,                     # The average of the x or y values
    elements                 # The elements
    )
    method enter(e)
@@ -60,7 +59,7 @@ class VGridLine : GridLine()
 
    #
    # Set all the elements' positions
-   # 
+   #
    method set_positions(spec, align, fix)
       local e
       every e := !elements do {
@@ -106,7 +105,7 @@ end
 # A set of GridLines
 #
 class GridSet : Comparator(
-   orientation,             # Either "h" or "v"                  
+   orientation,             # Either "h" or "v"
    lines                    # The lines - all HGridLines or all VGridLines.
    )
 

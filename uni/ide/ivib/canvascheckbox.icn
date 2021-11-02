@@ -1,4 +1,3 @@
-package ivib
 #
 # $Id: canvascheckbox.icn,v 1.2 2006-07-09 23:43:11 rparlett Exp $
 #
@@ -18,8 +17,8 @@ class CanvasCheckBox : CanvasButton : CheckBox()
    method set_parent_check_box_group(x)
       #
       # Set the images to the standard diamonds, unless custom images already set.
-      #  
-      if self.img_up == img_style("box_up") & self.img_down == img_style("box_down") then 
+      #
+      if self.img_up == img_style("box_up") & self.img_down == img_style("box_down") then
          self.set_imgs(img_style("diamond_up"), img_style("diamond_down"))
 
       self.CheckBox.set_parent_check_box_group(x)
@@ -32,7 +31,7 @@ class CanvasCheckBox : CanvasButton : CheckBox()
       self.CanvasButton.gen_code(c)
 
       c.line(name || ".set_label(" || image(self.label) || ")")
-      if not((/self.parent_check_box_group & self.img_up == img_style("box_up") & self.img_down == img_style("box_down")) | 
+      if not((/self.parent_check_box_group & self.img_up == img_style("box_up") & self.img_down == img_style("box_down")) |
              (\self.parent_check_box_group & self.img_up == img_style("diamond_up") & self.img_down == img_style("diamond_down"))) then
          c.line(name || ".set_imgs(" || image(self.img_up) || ", " || image(self.img_down) || ")")
    end

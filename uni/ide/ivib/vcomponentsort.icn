@@ -1,4 +1,3 @@
-package ivib
 #
 # $Id: vcomponentsort.icn,v 1.1 2004-02-12 16:42:29 rparlett Exp $
 #
@@ -20,4 +19,3 @@ class VComponentSort : ComponentSort()
       return x.abs_y_spec < y.abs_y_spec
    end
 end
-
