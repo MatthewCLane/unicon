@@ -1301,30 +1301,27 @@ $endif
       local L := []
       if CurrentTabItem().label==="Untitled" then {
 	       #system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
-               write("Prior to Ivib Creation - If")
-               ivib_maindialogwindow := Main()
-               write("Ivib Created - If")
-	       #ivib_maindialogwindow.custom_show(args)
-
+         write("Prior to Ivib Creation - If")
+         ivib_maindialogwindow := Main()
+         ivib_maindialogwindow.custom_show(args)
+	       write("Ivib Created - If")
 	       }
       else if CurrentTabItem().label==="scratch" then {
 	       #if not system("ivib &", L) then
             #uidlog.MsgBox.set_contents(["System Failed"])
 	       write("Prior to Ivib Creation - Else If")
 	       ivib_maindialogwindow := Main()
-               ivib_maindialogwindow.show_modal()
+         ivib_maindialogwindow.show_modal()
 	       write("Ivib Created - Else If")
-               #ivib_maindialogwindow.custom_show(args)
-
-               }
+         #ivib_maindialogwindow.custom_show(args)
+         }
       else {
 	       #if not system("ivib " || CurrentTabItem().label || "&", L) then
             #uidlog.MsgBox.set_contents(["System Failed"])
-               write("Prior Ivib Creation - Else")
-               ivib_maindialogwindow := Main()
-               write("Ivib Created - Else")
-               ivib_maindialogwindow.custom_show(CurrentTabItem().label || L)
-
+         write("Prior Ivib Creation - Else")
+         ivib_maindialogwindow := Main()
+         write("Ivib Created - Else")
+         ivib_maindialogwindow.custom_show(CurrentTabItem().label || L)
 	       }
       updatefile(CurrentTabItem().label)
    end
