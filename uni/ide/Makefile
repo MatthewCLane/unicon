@@ -16,7 +16,56 @@ SRC=ui.icn ide.icn hfiledialog.icn buffertextlist.icn buffertabset.icn \
 	templates.icn definitions.icn uproject.icn \
 	classbrowser.icn tree.icn imgs.icn utags.icn matchparen.icn \
 	qu_replace.icn online.icn about.icn is_binary.icn ptyDispatcher.icn \
-	shelletl.icn funclookup.icn 
+	shelletl.icn funclookup.icn ivib/attribtab.icn ivib/basiccanvascomponentui.icn \
+	ivib/buttongroupset.icn ivib/canvas.icn ivib/canvasborder.icn \
+	ivib/canvasborderdialog.icn ivib/canvasborderui.icn ivib/canvasbutton.icn \
+	ivib/canvasbuttondialog.icn ivib/canvasbuttongroup.icn ivib/canvascheckbox.icn \
+	ivib/canvascheckboxdialog.icn ivib/canvascheckboxgroup.icn \
+	ivib/canvascheckboxmenuedit.icn ivib/canvascheckboxmenuitem.icn \
+	ivib/canvascheckboxui.icn ivib/canvascomponent.icn \
+	ivib/canvascomponentdialog.icn ivib/canvascomponentui.icn \
+	ivib/canvascustom.icn ivib/canvascustomdialog.icn ivib/canvascustomui.icn \
+	ivib/canvaseditabletextlist.icn ivib/canvaseditabletextlistdialog.icn \
+	ivib/canvaseditabletextlistui.icn ivib/canvaseditlist.icn \
+	ivib/canvaseditlistdialog.icn ivib/canvaseditlistui.icn \
+	ivib/canvashscrollbarui.icn ivib/canvasicon.icn ivib/canvasiconbutton.icn \
+	ivib/canvasiconbuttondialog.icn ivib/canvasiconbuttonui.icn \
+	ivib/canvasicondialog.icn ivib/canvasiconui.icn ivib/canvasimage.icn \
+	ivib/canvasimagedialog.icn ivib/canvasimageui.icn ivib/canvaslabel.icn \
+	ivib/canvaslabeldialog.icn ivib/canvaslabelui.icn ivib/canvaslist.icn \
+	ivib/canvaslistdialog.icn ivib/canvaslistui.icn ivib/canvasmenu.icn \
+	ivib/canvasmenubar.icn ivib/canvasmenubardialog.icn ivib/canvasmenubarui.icn \
+	ivib/canvasmenubutton.icn ivib/canvasmenubuttonui.icn \
+	ivib/canvasmenucomponent.icn ivib/canvasmenucomponentdialog.icn \
+	ivib/canvasmenuseparator.icn ivib/canvasmenuseparatoredit.icn \
+	ivib/canvasoverlayitem.icn ivib/canvasoverlayset.icn \
+	ivib/canvasoverlaysetdialog.icn ivib/canvasoverlaysetui.icn \
+	ivib/canvaspanel.icn ivib/canvaspaneldialog.icn ivib/canvaspanelui.icn \
+	ivib/canvasscrollbar.icn ivib/canvasscrollbardialog.icn ivib/canvastabitem.icn \
+	ivib/canvastable.icn ivib/canvastablecolumn.icn ivib/canvastabledialog.icn \
+	ivib/canvastableui.icn ivib/canvastabset.icn ivib/canvastabsetdialog.icn \
+	ivib/canvastabsetui.icn ivib/canvastextbutton.icn \
+	ivib/canvastextbuttondialog.icn ivib/canvastextbuttonui.icn \
+	ivib/canvastextfield.icn ivib/canvastextfielddialog.icn \
+	ivib/canvastextfieldui.icn ivib/canvastextlist.icn \
+	ivib/canvastextlistdialog.icn ivib/canvastextlistui.icn \
+	ivib/canvastextmenuitem.icn ivib/canvastoolbar.icn \
+	ivib/canvastoolbardialog ivib/canvastoolbarui.icn ivib/canvasvscrollbarui.icn \
+	ivib/cdialog.icn ivib/checkboxgroupset.icn ivib/choicedialog.icn ivib/code.icn \
+	ivib/commondialog.icn ivib/componentsort.icn ivib/custom.icn ivib/eventtab.icn \
+	ivib/gridelement.icn ivib/gridset.icn ivib/group.icn ivib/groupset.icn \
+	ivib/groupsetdialog.icn ivib/hcomponentsort.icn ivib/infodialog.icn \
+	ivib/ivibmigrate.icn ivib/main.icn ivib/menucomponentedit.icn ivib/menutree.icn \
+	ivib/menutreenode.icn ivib/savechangesdialog.icn ivib/utils.icn \
+	ivib/vcomponentsort.icn ivib/version.icn ivib/canvashlineui.icn \
+	ivib/canvasline.icn ivib/canvaslinedialog.icn ivib/canvasvlineui.icn \
+	ivib/canvastreeui.icn ivib/canvastree.icn ivib/canvastreedialog.icn \
+	ivib/canvaslistspinui.icn ivib/canvaslistspin.icn ivib/canvaslistspindialog.icn \
+	ivib/canvasrangespinui.icn ivib/canvasrangespin.icn \
+	ivib/canvasrangespindialog.icn ivib/canvashsliderui.icn ivib/canvasslider.icn \
+	ivib/canvassliderdialog.icn ivib/canvasvsliderui.icn ivib/canvashsizerui.icn \
+	ivib/canvassizer.icn ivib/canvassizerdialog.icn ivib/canvasvsizerui.icn\
+
 
 OBJ=ui.u ide.u hfiledialog.u buffertextlist.u buffertabset.u buffertabitem.u \
 	mainbar.u modified.u preferences.u templates.u definitions.u \
