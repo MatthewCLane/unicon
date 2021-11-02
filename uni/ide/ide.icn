@@ -102,31 +102,30 @@ class IDE (
          which_tab, c, filedirectory
 
       if /filename then {
-$ifdef _UNIX
-	 fd := HFileDialog()
+         $ifdef _UNIX
+	                fd := HFileDialog()
 
-	 # set subdialog's position based on ide's position
-	 # assume subdialog is 400x400
-	 dwidth := WAttrib(uidlog.win, "width")
-	 dheight := WAttrib(uidlog.win, "height")
-	 dposx :=  WAttrib(uidlog.win, "posx") + dwidth/2 - 200
-	 dposy :=  WAttrib(uidlog.win, "posy") + dheight/2 - 200
-	 # L := []; every put(L, QueryPointer(uidlog.win))
-	 # mousex := L[1]; mousey := L[2]
-	 fd.attrib("pos=" || dposx || "," || dposy)
+	              # set subdialog's position based on ide's position
+	              # assume subdialog is 400x400
+	                dwidth := WAttrib(uidlog.win, "width")
+	                dheight := WAttrib(uidlog.win, "height")
+	                dposx :=  WAttrib(uidlog.win, "posx") + dwidth/2 - 200
+	                dposy :=  WAttrib(uidlog.win, "posy") + dheight/2 - 200
+	              # L := []; every put(L, QueryPointer(uidlog.win))
+	              # mousex := L[1]; mousey := L[2]
+	                fd.attrib("pos=" || dposx || "," || dposy)
 
-         fd.set_directory(CurrentTabItem().filedirectory)
-	 fd.show_modal()
-	 filename := fd.get_result() | fail
-	 filedirectory := fd.get_directory()
-$else
-	 filename :=
-	    WinOpenDialog(uidlog.win, "Open File ...", "", 5,,,
-			  chdir(CurrentTabItem().filedirectory)
-                         ) | fail
+             fd.set_directory(CurrentTabItem().filedirectory)
+	                fd.show_modal()
+	                filename := fd.get_result() | fail
+	                filedirectory := fd.get_directory()
+         $else
+	                filename :=
+	                  WinOpenDialog(uidlog.win, "Open File ...", "", 5,,,
+			                             chdir(CurrentTabItem().filedirectory)) | fail
 
-$endif
-	 }
+         $endif
+	             }
       if /filename | filename=="" | filename[-1]==("\\"|"/") then
          return \uidlog.MsgBox.set_contents(["Error opening file \"" ||
 					     file_name(filename) || "\""])
