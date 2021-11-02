@@ -137,31 +137,31 @@ class IDE (
       file_contents := []
       nchars := 0
       if ufile := open(filename, "ru") then
-      while line := read(ufile) do {
-	 if line[-1] == "\^m" then line := line[1:-1]
-	 put(file_contents, line)
-	 nchars +:= *line + 1
-	 }
+         while line := read(ufile) do {
+	          if line[-1] == "\^m" then line := line[1:-1]
+	          put(file_contents, line)
+	          nchars +:= *line + 1
+	          }
 
-      # We don't have a file open with the same name, so
-      # add a new tab with the file name
-      if not member(opened_files_set, filename) then {
-	 if is_binary(filename) then
-	    uidlog.MsgBox.set_contents(["Cannot open binary "||filename])
-	 else {
-	    new_tabitem(,1,file_name(filename),file_contents, filedirectory)
-            \uidlog.MsgBox.set_contents(["opened " || filename || ", " ||
-					 *file_contents || " lines, " ||
-					 nchars || " characters"])
-	    uidlog.FileTabSet.set_which_one(CurrentTabItem())
-	    handle_update()
-	    insert(opened_files_set, filename)
+   # We don't have a file open with the same name, so
+   # add a new tab with the file name
+   if not member(opened_files_set, filename) then {
+	    if is_binary(filename) then
+	       uidlog.MsgBox.set_contents(["Cannot open binary "||filename])
+	    else {
+	       new_tabitem(,1,file_name(filename),file_contents, filedirectory)
+         \uidlog.MsgBox.set_contents(["opened " || filename || ", " ||
+				                             *file_contents || " lines, " ||
+				                             nchars || " characters"])
+	       uidlog.FileTabSet.set_which_one(CurrentTabItem())
+	       handle_update()
+	       insert(opened_files_set, filename)
+	       }
 	    }
-	 }
       else {
-	 c := uidlog.FileTabSet.get_tabitem(file_name(filename))
-	 uidlog.FileTabSet.set_which_one(\c)
-	 }
+	       c := uidlog.FileTabSet.get_tabitem(file_name(filename))
+	       uidlog.FileTabSet.set_which_one(\c)
+	       }
       CurrentTabItem().filename := file_name(filename)
       CurrentTabItem().filedirectory := filename[1:-*CurrentTabItem().filename]
       uidlog.FileBrowser.addreplace(CurrentEditBox().contents,
