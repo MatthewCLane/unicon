@@ -99,7 +99,7 @@ class UIDE : Dialog(
       menubar.Menubar()
       ide.Toolbar(pnlToolbar) #This call to add a toolbar
       FileBrowser.addreplace("file_contents", "tab_label", 0)
-#      IvibFile.custom_show(ide.CurrentTabItem().label)        #>#
+      IvibFile.show_modeless(ide.CurrentTabItem().label)        #>#
       MsgBox.set_contents([\error_msg])
    end
 
@@ -420,13 +420,13 @@ class UIDE : Dialog(
       IvibTabSet := BufferTabSet()
       IvibTabSet.set_pos("0", "110%")
       IvibTabSet.set_size("0", "0")               #>#
-      tab_item_5 := TabItem()
+      tab_item_5 := BufferTabItem()
       tab_item_5.set_label("IVIB")
       IvibFile := Main()
-#      IvibFile.set_pos("2", "2")
-#      IvibFile.set_size("100%-4", "100%-4")
-#      IvibFile.set_draw_border()
-#      IvibFile.set_attribs("bg=white")
+      IvibFile.set_pos("2", "2")
+      IvibFile.set_size("100%-4", "100%-4")
+      IvibFile.set_draw_border()
+      IvibFile.set_attribs("bg=white")
       tab_item_5.add(IvibFile)
       IvibTabSet.add(tab_item_5)
       IvibTabSet.set_which_one(tab_item_5)
