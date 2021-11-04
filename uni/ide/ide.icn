@@ -3,7 +3,7 @@ $include "guih.icn"
 #link graphics
 
 link io, noncase, findre, printdlg
-link "ivib/attribtab", "ivib/basiccanvascomponentui", "ivib/buttongroupset", "ivib/canvas", "ivib/canvasborder", "ivib/canvasborderdialog", "ivib/canvasborderui", "ivib/canvasbutton", "ivib/canvasbuttondialog", "ivib/canvasbuttongroup", "ivib/canvascheckbox", "ivib/canvascheckboxdialog", "ivib/canvascheckboxgroup", "ivib/canvascheckboxmenuedit", "ivib/canvascheckboxmenuitem", "ivib/canvascheckboxui", "ivib/canvascomponent", "ivib/canvascomponentdialog", "ivib/canvascomponentui", "ivib/canvascustom", "ivib/canvascustomdialog", "ivib/canvascustomui", "ivib/canvaseditabletextlist", "ivib/canvaseditabletextlistdialog", "ivib/canvaseditabletextlistui", "ivib/canvaseditlist", "ivib/canvaseditlistdialog", "ivib/canvaseditlistui", "ivib/canvashscrollbarui", "ivib/canvasicon", "ivib/canvasiconbutton", "ivib/canvasiconbuttondialog", "ivib/canvasiconbuttonui", "ivib/canvasicondialog", "ivib/canvasiconui", "ivib/canvasimage", "ivib/canvasimagedialog", "ivib/canvasimageui", "ivib/canvaslabel", "ivib/canvaslabeldialog", "ivib/canvaslabelui", "ivib/canvaslist", "ivib/canvaslistdialog", "ivib/canvaslistui", "ivib/canvasmenu", "ivib/canvasmenubar", "ivib/canvasmenubardialog", "ivib/canvasmenubarui", "ivib/canvasmenubutton", "ivib/canvasmenubuttonui", "ivib/canvasmenucomponent", "ivib/canvasmenucomponentdialog", "ivib/canvasmenuseparator", "ivib/canvasmenuseparatoredit", "ivib/canvasoverlayitem", "ivib/canvasoverlayset", "ivib/canvasoverlaysetdialog", "ivib/canvasoverlaysetui", "ivib/canvaspanel", "ivib/canvaspaneldialog", "ivib/canvaspanelui", "ivib/canvasscrollbar", "ivib/canvasscrollbardialog", "ivib/canvastabitem", "ivib/canvastable", "ivib/canvastablecolumn", "ivib/canvastabledialog", "ivib/canvastableui", "ivib/canvastabset", "ivib/canvastabsetdialog", "ivib/canvastabsetui", "ivib/canvastextbutton", "ivib/canvastextbuttondialog", "ivib/canvastextbuttonui", "ivib/canvastextfield", "ivib/canvastextfielddialog", "ivib/canvastextfieldui", "ivib/canvastextlist", "ivib/canvastextlistdialog", "ivib/canvastextlistui", "ivib/canvastextmenuitem", "ivib/canvastoolbar", "ivib/canvastoolbardialog", "ivib/canvastoolbarui", "ivib/canvasvscrollbarui", "ivib/cdialog", "ivib/checkboxgroupset", "ivib/choicedialog", "ivib/code", "ivib/commondialog", "ivib/componentsort", "ivib/custom", "ivib/eventtab", "ivib/gridelement", "ivib/gridset", "ivib/group", "ivib/groupset", "ivib/groupsetdialog", "ivib/hcomponentsort", "ivib/infodialog", "ivib/ivibmigrate", "ivib/main", "ivib/menucomponentedit", "ivib/menutree", "ivib/menutreenode", "ivib/savechangesdialog", "ivib/utils", "ivib/vcomponentsort", "ivib/version", "ivib/canvashlineui", "ivib/canvasline", "ivib/canvaslinedialog", "ivib/canvasvlineui", "ivib/canvastreeui", "ivib/canvastree", "ivib/canvastreedialog", "ivib/canvaslistspinui", "ivib/canvaslistspin", "ivib/canvaslistspindialog", "ivib/canvasrangespinui", "ivib/canvasrangespin", "ivib/canvasrangespindialog", "ivib/canvashsliderui", "ivib/canvasslider", "ivib/canvassliderdialog", "ivib/canvasvsliderui", "ivib/canvashsizerui", "ivib/canvassizer", "ivib/canvassizerdialog", "ivib/canvasvsizerui"
+#link "ivib/attribtab", "ivib/basiccanvascomponentui", "ivib/buttongroupset", "ivib/canvas", "ivib/canvasborder", "ivib/canvasborderdialog", "ivib/canvasborderui", "ivib/canvasbutton", "ivib/canvasbuttondialog", "ivib/canvasbuttongroup", "ivib/canvascheckbox", "ivib/canvascheckboxdialog", "ivib/canvascheckboxgroup", "ivib/canvascheckboxmenuedit", "ivib/canvascheckboxmenuitem", "ivib/canvascheckboxui", "ivib/canvascomponent", "ivib/canvascomponentdialog", "ivib/canvascomponentui", "ivib/canvascustom", "ivib/canvascustomdialog", "ivib/canvascustomui", "ivib/canvaseditabletextlist", "ivib/canvaseditabletextlistdialog", "ivib/canvaseditabletextlistui", "ivib/canvaseditlist", "ivib/canvaseditlistdialog", "ivib/canvaseditlistui", "ivib/canvashscrollbarui", "ivib/canvasicon", "ivib/canvasiconbutton", "ivib/canvasiconbuttondialog", "ivib/canvasiconbuttonui", "ivib/canvasicondialog", "ivib/canvasiconui", "ivib/canvasimage", "ivib/canvasimagedialog", "ivib/canvasimageui", "ivib/canvaslabel", "ivib/canvaslabeldialog", "ivib/canvaslabelui", "ivib/canvaslist", "ivib/canvaslistdialog", "ivib/canvaslistui", "ivib/canvasmenu", "ivib/canvasmenubar", "ivib/canvasmenubardialog", "ivib/canvasmenubarui", "ivib/canvasmenubutton", "ivib/canvasmenubuttonui", "ivib/canvasmenucomponent", "ivib/canvasmenucomponentdialog", "ivib/canvasmenuseparator", "ivib/canvasmenuseparatoredit", "ivib/canvasoverlayitem", "ivib/canvasoverlayset", "ivib/canvasoverlaysetdialog", "ivib/canvasoverlaysetui", "ivib/canvaspanel", "ivib/canvaspaneldialog", "ivib/canvaspanelui", "ivib/canvasscrollbar", "ivib/canvasscrollbardialog", "ivib/canvastabitem", "ivib/canvastable", "ivib/canvastablecolumn", "ivib/canvastabledialog", "ivib/canvastableui", "ivib/canvastabset", "ivib/canvastabsetdialog", "ivib/canvastabsetui", "ivib/canvastextbutton", "ivib/canvastextbuttondialog", "ivib/canvastextbuttonui", "ivib/canvastextfield", "ivib/canvastextfielddialog", "ivib/canvastextfieldui", "ivib/canvastextlist", "ivib/canvastextlistdialog", "ivib/canvastextlistui", "ivib/canvastextmenuitem", "ivib/canvastoolbar", "ivib/canvastoolbardialog", "ivib/canvastoolbarui", "ivib/canvasvscrollbarui", "ivib/cdialog", "ivib/checkboxgroupset", "ivib/choicedialog", "ivib/code", "ivib/commondialog", "ivib/componentsort", "ivib/custom", "ivib/eventtab", "ivib/gridelement", "ivib/gridset", "ivib/group", "ivib/groupset", "ivib/groupsetdialog", "ivib/hcomponentsort", "ivib/infodialog", "ivib/ivibmigrate", "ivib/main", "ivib/menucomponentedit", "ivib/menutree", "ivib/menutreenode", "ivib/savechangesdialog", "ivib/utils", "ivib/vcomponentsort", "ivib/version", "ivib/canvashlineui", "ivib/canvasline", "ivib/canvaslinedialog", "ivib/canvasvlineui", "ivib/canvastreeui", "ivib/canvastree", "ivib/canvastreedialog", "ivib/canvaslistspinui", "ivib/canvaslistspin", "ivib/canvaslistspindialog", "ivib/canvasrangespinui", "ivib/canvasrangespin", "ivib/canvasrangespindialog", "ivib/canvashsliderui", "ivib/canvasslider", "ivib/canvassliderdialog", "ivib/canvasvsliderui", "ivib/canvashsizerui", "ivib/canvassizer", "ivib/canvassizerdialog", "ivib/canvasvsizerui"
 
 # $define lpr "enscript -b \" \" -1 -Plexnormal"
 #----------------------------------------------
@@ -1299,30 +1299,30 @@ $endif
    method on_ivib(ev)
       local L := []
       if CurrentTabItem().label==="Untitled" then {
-	       #system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
-               write("Prior to Ivib Creation - If")
-               ivib_maindialogwindow := Main()
-               write("Ivib Created - If")
+	       system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
+               #write("Prior to Ivib Creation - If")
+               #ivib_maindialogwindow := Main()
+               #write("Ivib Created - If")
 	       #ivib_maindialogwindow.custom_show(args)
 
 	       }
       else if CurrentTabItem().label==="scratch" then {
-	       #if not system("ivib &", L) then
-            #uidlog.MsgBox.set_contents(["System Failed"])
-	       write("Prior to Ivib Creation - Else If")
-	       ivib_maindialogwindow := Main()
-               ivib_maindialogwindow.show_modal()
-	       write("Ivib Created - Else If")
+	       if not system("ivib &", L) then
+            	uidlog.MsgBox.set_contents(["System Failed"])
+	       #write("Prior to Ivib Creation - Else If")
+	       #ivib_maindialogwindow := Main()
+               #ivib_maindialogwindow.show_modal()
+	       #write("Ivib Created - Else If")
                #ivib_maindialogwindow.custom_show(args)
 
                }
       else {
-	       #if not system("ivib " || CurrentTabItem().label || "&", L) then
-            #uidlog.MsgBox.set_contents(["System Failed"])
-               write("Prior Ivib Creation - Else")
-               ivib_maindialogwindow := Main()
-               write("Ivib Created - Else")
-               ivib_maindialogwindow.custom_show(CurrentTabItem().label || L)
+	       if not system("ivib " || CurrentTabItem().label || "&", L) then
+            	uidlog.MsgBox.set_contents(["System Failed"])
+               #write("Prior Ivib Creation - Else")
+               #ivib_maindialogwindow := Main()
+               #write("Ivib Created - Else")
+               #ivib_maindialogwindow.custom_show(CurrentTabItem().label || L)
 
 	       }
       updatefile(CurrentTabItem().label)

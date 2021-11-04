@@ -1,3 +1,4 @@
+
 ###########################################################################
 #
 #	File:     ui.icn
@@ -51,7 +52,7 @@ link unigram, idol, tree, preproce, unilex, unicon, yyerror
 
 global linebreak, uidlog, browser, browserversion, docpath, UIDE_VERS,
        is_MSWindows, PATHSEP, env, win_position,
-       fontname
+       fontname, IvibFile
 
 #$define lpr "enscript -b \" \" -1 -Plex3normal"
 ##$define HELP_PATH "help"
@@ -64,7 +65,7 @@ class UIDE : Dialog(
    pnlToolbar, menubar,
    MsgBox, EditBox, PtyBox,
    FileTabSet,ClassTabSet, DevTabSet, IvibTabSet,
-   FileBrowser, IvibFile,
+   FileBrowser, 
    tab_item_1, tab_item_2, tab_item_3, tab_item_4,
    ui_Preferences
    )
@@ -98,7 +99,7 @@ class UIDE : Dialog(
       menubar.Menubar()
       ide.Toolbar(pnlToolbar) #This call to add a toolbar
       FileBrowser.addreplace("file_contents", "tab_label", 0)
-#      IvibFile.custom_show(ide.CurrentTabItem().label)
+      #IvibFile.custom_show(ide.CurrentTabItem().label)
       MsgBox.set_contents([\error_msg])
    end
 
@@ -421,13 +422,26 @@ class UIDE : Dialog(
       IvibTabSet.set_size("0", "0")
       tab_item_5 := TabItem()
       tab_item_5.set_label("IVIB")
-#      IvibFile := Main()
-#      IvibFile.set_pos("2", "2")
-#      IvibFile.set_size("100%-4", "100%-4")
-#      IvibFile.set_draw_border()
-#      IvibFile.set_attribs("bg=white")
-#      IvibFile.set_select_one()
-#      tab_item_5.add(IvibFile)
+      IvibFile := Main()
+      IvibFile.set_pos("2", "2")
+      IvibFile.set_size("100%-4", "100%-4")
+      IvibFile.set_draw_border()
+      IvibFile.set_attribs("bg=white")
+      #IvibFile.set_select_one()
+      #write (IvibFile.win, "<--- This IvibFile.win")
+      #IvibFile.win := WOpen("canvas=hidden")
+      #IvibFile.win := "IVIB"
+      #IvibFile.win := Window("canvas=hidden", "size=5,5")
+      #IvibFile.win := "size=10,10"
+      #IvibFile.buffer_win := "size=10,10"
+      #IvibFile.win := Window("canvas=hidden", "size=" || width || "," || height, "fg=grayish-white", "pos=" || win_position)
+      #IvibFile.buffer_win := Window("canvas=hidden", "size=" || width || "," || height, "fg=grayish-white", "pos=" || win_position)
+      IvibFile.win := Clone(&window)
+      #IvibFile.buffer := Clone(&buffer_win)
+      #IvibFile.show_modeless()	
+      #IvibFile.show()
+      #IvibFile.open_win()
+      tab_item_5.add(IvibFile)
       IvibTabSet.add(tab_item_5)
       IvibTabSet.set_which_one(tab_item_5)
       self.add(IvibTabSet)
@@ -569,7 +583,8 @@ end
 #Align|string|l|Y Align|string|t|Is shaded|null|Is Button Subclass|null
 #|Draw Border|integer|1|Attribs|list|1|string|bg=white|Tooltip|null|Acc
 #el|null|Event Handlers|list|0|Class Variable|integer|1|Parent Componen
-#t|36|Select One|integer|1|Select Many|null|Show Root Handles|integer|1
+#t|36|Select One|integer|1|Select Many|null|
+#Show Root Handles|integer|1
 #|Show Root|integer|1|Which One|36|class|CanvasPanel|26|Parent Canvas|1
 #|Name|string|pnlToolbar|Class Name|string|Panel|Import Name|string|gui
 #|X Fix|null|Y Fix|null|W Fix|null|H Fix|null|W Default|null|H Default|

@@ -622,6 +622,7 @@ $endif
       uidlog.IvibTabSet.resize()
       uidlog.ClassTabSet.resize()
       uidlog.pnlToolbar.resize()
+      #IvibFile.show_modal()
    end
 
    method on_view_window_filesclassbrowser(ev)
