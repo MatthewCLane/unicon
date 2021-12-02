@@ -3,6 +3,42 @@
 BASE=../..
 include $(BASE)/Makedefs.uni
 
+ICONDIR=ivib/icon
+
+ICONS=$(ICONDIR)/icn1.icon \
+      $(ICONDIR)/icn2.icon \
+      $(ICONDIR)/icn3.icon \
+      $(ICONDIR)/icn4.icon \
+      $(ICONDIR)/icn5.icon \
+      $(ICONDIR)/icn6.icon \
+      $(ICONDIR)/icn7.icon \
+      $(ICONDIR)/icn8.icon \
+      $(ICONDIR)/icn9.icon \
+      $(ICONDIR)/icn10.icon \
+      $(ICONDIR)/icn11.icon \
+      $(ICONDIR)/icn12.icon \
+      $(ICONDIR)/icn13.icon \
+      $(ICONDIR)/icn14.icon \
+      $(ICONDIR)/icn15.icon \
+      $(ICONDIR)/icn16.icon \
+      $(ICONDIR)/icn17.icon \
+      $(ICONDIR)/icn18.icon \
+      $(ICONDIR)/icn19.icon \
+      $(ICONDIR)/icn20.icon \
+      $(ICONDIR)/icn21.icon \
+      $(ICONDIR)/icn22.icon \
+      $(ICONDIR)/icn23.icon \
+      $(ICONDIR)/icn24.icon \
+      $(ICONDIR)/icn25.icon \
+      $(ICONDIR)/icn26.icon \
+      $(ICONDIR)/icn27.icon \
+      $(ICONDIR)/icn28.icon \
+      $(ICONDIR)/icn29.icon \
+      $(ICONDIR)/icn30.icon \
+      $(ICONDIR)/icn31.icon \
+      $(ICONDIR)/icn32.icon \
+      $(ICONDIR)/icon.icon
+
 # needed to link idol.u
 export IPATH:=$(UNI)/unicon
 
@@ -16,94 +52,14 @@ SRC=ui.icn ide.icn hfiledialog.icn buffertextlist.icn buffertabset.icn \
 	templates.icn definitions.icn uproject.icn \
 	classbrowser.icn tree.icn imgs.icn utags.icn matchparen.icn \
 	qu_replace.icn online.icn about.icn is_binary.icn ptyDispatcher.icn \
-	shelletl.icn funclookup.icn
-#	ivib/attribtab.icn ivib/basiccanvascomponentui.icn \
-	ivib/buttongroupset.icn ivib/canvas.icn ivib/canvasborder.icn \
-	ivib/canvasborderdialog.icn ivib/canvasborderui.icn ivib/canvasbutton.icn \
-	ivib/canvasbuttondialog.icn ivib/canvasbuttongroup.icn ivib/canvascheckbox.icn \
-	ivib/canvascheckboxdialog.icn ivib/canvascheckboxgroup.icn \
-	ivib/canvascheckboxmenuedit.icn ivib/canvascheckboxmenuitem.icn \
-	ivib/canvascheckboxui.icn ivib/canvascomponent.icn \
-	ivib/canvascomponentdialog.icn ivib/canvascomponentui.icn \
-	ivib/canvascustom.icn ivib/canvascustomdialog.icn ivib/canvascustomui.icn \
-	ivib/canvaseditabletextlist.icn ivib/canvaseditabletextlistdialog.icn \
-	ivib/canvaseditabletextlistui.icn ivib/canvaseditlist.icn \
-	ivib/canvaseditlistdialog.icn ivib/canvaseditlistui.icn \
-	ivib/canvashscrollbarui.icn ivib/canvasicon.icn ivib/canvasiconbutton.icn \
-	ivib/canvasiconbuttondialog.icn ivib/canvasiconbuttonui.icn \
-	ivib/canvasicondialog.icn ivib/canvasiconui.icn ivib/canvasimage.icn \
-	ivib/canvasimagedialog.icn ivib/canvasimageui.icn ivib/canvaslabel.icn \
-	ivib/canvaslabeldialog.icn ivib/canvaslabelui.icn ivib/canvaslist.icn \
-	ivib/canvaslistdialog.icn ivib/canvaslistui.icn ivib/canvasmenu.icn \
-	ivib/canvasmenubar.icn ivib/canvasmenubardialog.icn ivib/canvasmenubarui.icn \
-	ivib/canvasmenubutton.icn ivib/canvasmenubuttonui.icn \
-	ivib/canvasmenucomponent.icn ivib/canvasmenucomponentdialog.icn \
-	ivib/canvasmenuseparator.icn ivib/canvasmenuseparatoredit.icn \
-	ivib/canvasoverlayitem.icn ivib/canvasoverlayset.icn \
-	ivib/canvasoverlaysetdialog.icn ivib/canvasoverlaysetui.icn \
-	ivib/canvaspanel.icn ivib/canvaspaneldialog.icn ivib/canvaspanelui.icn \
-	ivib/canvasscrollbar.icn ivib/canvasscrollbardialog.icn ivib/canvastabitem.icn \
-	ivib/canvastable.icn ivib/canvastablecolumn.icn ivib/canvastabledialog.icn \
-	ivib/canvastableui.icn ivib/canvastabset.icn ivib/canvastabsetdialog.icn \
-	ivib/canvastabsetui.icn ivib/canvastextbutton.icn \
-	ivib/canvastextbuttondialog.icn ivib/canvastextbuttonui.icn \
-	ivib/canvastextfield.icn ivib/canvastextfielddialog.icn \
-	ivib/canvastextfieldui.icn ivib/canvastextlist.icn \
-	ivib/canvastextlistdialog.icn ivib/canvastextlistui.icn \
-	ivib/canvastextmenuitem.icn ivib/canvastoolbar.icn \
-	ivib/canvastoolbardialog ivib/canvastoolbarui.icn ivib/canvasvscrollbarui.icn \
-	ivib/cdialog.icn ivib/checkboxgroupset.icn ivib/choicedialog.icn ivib/code.icn \
-	ivib/commondialog.icn ivib/componentsort.icn ivib/custom.icn ivib/eventtab.icn \
-	ivib/gridelement.icn ivib/gridset.icn ivib/group.icn ivib/groupset.icn \
-	ivib/groupsetdialog.icn ivib/hcomponentsort.icn ivib/infodialog.icn \
-	ivib/ivibmigrate.icn ivib/main.icn ivib/menucomponentedit.icn ivib/menutree.icn \
-	ivib/menutreenode.icn ivib/savechangesdialog.icn ivib/utils.icn \
-	ivib/vcomponentsort.icn ivib/version.icn ivib/canvashlineui.icn \
-	ivib/canvasline.icn ivib/canvaslinedialog.icn ivib/canvasvlineui.icn \
-	ivib/canvastreeui.icn ivib/canvastree.icn ivib/canvastreedialog.icn \
-	ivib/canvaslistspinui.icn ivib/canvaslistspin.icn ivib/canvaslistspindialog.icn \
-	ivib/canvasrangespinui.icn ivib/canvasrangespin.icn \
-	ivib/canvasrangespindialog.icn ivib/canvashsliderui.icn ivib/canvasslider.icn \
-	ivib/canvassliderdialog.icn ivib/canvasvsliderui.icn ivib/canvashsizerui.icn \
-	ivib/canvassizer.icn ivib/canvassizerdialog.icn ivib/canvasvsizerui.icn\
+	shelletl.icn funclookup.icn ivibtab.icn
 
 
 OBJ=ui.u ide.u hfiledialog.u buffertextlist.u buffertabset.u buffertabitem.u \
 	mainbar.u modified.u preferences.u templates.u definitions.u \
 	uproject.u classbrowser.u imgs.u utags.u matchparen.u qu_replace.u \
 	online.u about.u is_binary.u ptyDispatcher.u shelletl.u funclookup.u\
-
-	#
-	# NB The file linkfiles.icn must be kept in synch with this list.
-	#
-#UFILES=attribtab.u basiccanvascomponentui.u buttongroupset.u canvas.u canvasborder.u \
-	canvasborderdialog.u canvasborderui.u canvasbutton.u canvasbuttondialog.u canvasbuttongroup.u \
-	canvascheckbox.u canvascheckboxdialog.u canvascheckboxgroup.u canvascheckboxmenuedit.u canvascheckboxmenuitem.u \
-	canvascheckboxui.u canvascomponent.u canvascomponentdialog.u canvascomponentui.u canvascustom.u \
-	canvascustomdialog.u canvascustomui.u canvaseditabletextlist.u canvaseditabletextlistdialog.u canvaseditabletextlistui.u \
-	canvaseditlist.u canvaseditlistdialog.u canvaseditlistui.u canvashscrollbarui.u canvasicon.u \
-	canvasiconbutton.u canvasiconbuttondialog.u canvasiconbuttonui.u canvasicondialog.u canvasiconui.u \
-	canvasimage.u canvasimagedialog.u canvasimageui.u canvaslabel.u canvaslabeldialog.u \
-	canvaslabelui.u canvaslist.u canvaslistdialog.u canvaslistui.u canvasmenu.u \
-	canvasmenubar.u canvasmenubardialog.u canvasmenubarui.u canvasmenubutton.u canvasmenubuttonui.u \
-	canvasmenucomponent.u canvasmenucomponentdialog.u canvasmenuseparator.u canvasmenuseparatoredit.u canvasoverlayitem.u \
-	canvasoverlayset.u canvasoverlaysetdialog.u canvasoverlaysetui.u canvaspanel.u canvaspaneldialog.u \
-	canvaspanelui.u canvasscrollbar.u canvasscrollbardialog.u canvastabitem.u canvastable.u \
-	canvastablecolumn.u canvastabledialog.u canvastableui.u canvastabset.u canvastabsetdialog.u \
-	canvastabsetui.u canvastextbutton.u canvastextbuttondialog.u canvastextbuttonui.u canvastextfield.u \
-	canvastextfielddialog.u canvastextfieldui.u canvastextlist.u canvastextlistdialog.u canvastextlistui.u \
-	canvastextmenuitem.u canvastoolbar.u canvastoolbardialog.u canvastoolbarui.u canvasvscrollbarui.u \
-	cdialog.u checkboxgroupset.u choicedialog.u code.u commondialog.u \
-	componentsort.u custom.u eventtab.u gridelement.u gridset.u \
-	group.u groupset.u groupsetdialog.u hcomponentsort.u infodialog.u \
-	ivib.u ivibmigrate.u main.u menucomponentedit.u menutree.u menutreenode.u \
-	savechangesdialog.u utils.u vcomponentsort.u \
-	canvashlineui.u  canvasline.u  canvaslinedialog.u  canvasvlineui.u \
-	canvastreeui.u canvastree.u canvastreedialog.u \
-	canvaslistspinui.u canvaslistspin.u canvaslistspindialog.u \
-	canvasrangespinui.u canvasrangespin.u canvasrangespindialog.u \
-	canvashsliderui.u  canvasslider.u  canvassliderdialog.u  canvasvsliderui.u \
-	canvashsizerui.u  canvassizer.u  canvassizerdialog.u  canvasvsizerui.u
+	ivibtab.u
 
 .PHONY: ivib
 
@@ -186,6 +142,9 @@ shelletl.u: shelletl.icn
 classbrowser.u: classbrowser.icn  imgs.u
 	$(UC) $(UFLAGS2) classbrowser
 
+ivibtab.u: ivibtab.icn
+	$(UC) $(UFLAGS) ivibtab
+
 #tree.u: tree.icn
 #	$(UC) $(UFLAGS2) tree
 
@@ -196,6 +155,22 @@ ui.u: ui.icn
 	$(UC) $(UFLAGS) ui
 
 ui.exe: ui
+
+icons: $(ICONS)
+
+cleanicons:
+	cd $(ICONDIR) ; \
+	$(RM) xpmtoims *.icon
+
+
+# Program to translate xpm to Icon image format.
+$(ICONDIR)/xpmtoims: $(ICONDIR)/xpmtoims.icn
+	$(UNICON) -o $(ICONDIR)/xpmtoims $(ICONDIR)/xpmtoims.icn
+
+
+# Rule to translate xpm to icon image format.
+$(ICONDIR)/%.icon: $(ICONDIR)/%.xpm $(ICONDIR)/xpmtoims
+	$(ICONDIR)/xpmtoims $< >$@
 
 clean :
 	$(RM) *.u uniclass.dir uniclass.pag uniclass.db ui$(EXE)
