@@ -14,7 +14,7 @@ $include "guih.icn"
 
 link io, font_dlg
 
-global gotoln, projectCreated, projectOpened
+global gotoln, projectCreated, projectOpened, win_override
 
 #
 # Class Mainbar manages an IDE toolbar, a dialog-like collection of components
@@ -162,6 +162,12 @@ class Mainbar(
       if \ (ide.CurrentEditBox().contents_changed()) then
          ide.save()
       ide.compile()
+   end
+
+   method on_windows_override(ev)
+      if \win_override then win_override := &null
+      else win_override := "true"
+      write("Am I true or null: ", win_override)
    end
 
    method on_compile_options(ev)
@@ -1214,6 +1220,12 @@ $endif
       compile_only.set_label("Compile only")
       compile_only.connect(self, "on_compile_only", ACTION_EVENT)
       menu_9.add(compile_only)
+      #if &features=="MS Windows NT" then {
+        windows_override := CheckBoxMenuItem()
+        windows_override.set_label("Windows Override")
+        windows_override.connect(self, "on_windows_override", ACTION_EVENT)
+        menu_9.add(windows_override)
+      #}
       compile_options := TextMenuItem()
       compile_options.set_label("Compile options")
       compile_options.connect(self, "on_compile_options", ACTION_EVENT)
