@@ -1400,18 +1400,34 @@ class IvibTab : Component(
 
          self.tool_area_height := y + 25
 
-         height := 600
-         self.set_attribs("label=Ivib", "size=" || width || "," || height)
+         #self.set_attribs("label=Ivib", "size=" || width || "," || height)
 
          #
          # Set up the Canvas object.
          #
-#         canvas := Canvas()
-#         canvas.set_pos(CANVAS_SURROUND, self.tool_area_height + CANVAS_SURROUND)
-#         orig_canvas_width := width - 2 * CANVAS_SURROUND
-#         orig_canvas_height := height - self.tool_area_height - 2 * CANVAS_SURROUND
-#         canvas.set_size(orig_canvas_width, orig_canvas_height)
-#         self.add(canvas)
+         canvas := Canvas()
+         canvas.set_pos(CANVAS_SURROUND, self.tool_area_height + CANVAS_SURROUND)
+         #orig_canvas_width := width - 2 * CANVAS_SURROUND
+         #orig_canvas_height := height - self.tool_area_height - 2 * CANVAS_SURROUND
+         blank_window := open("u_ide_blank", "g", "canvas=hidden")
+         orig_canvas_height := WAttrib(blank_window, "displayheight") - 150
+         orig_canvas_width := WAttrib(blank_window, "displaywidth") - 150
+#For reference only, this is the code for resize in canvas.icn.
+#method resize()
+#     local parent_dlg
+#     self.Component.resize()
+#    parent_dlg := self.get_parent_dialog()
+#    WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() -
+#      self.x + 2 * EDGE || "," || parent_dlg.get_h_reference() -
+#      self.y + 2 * EDGE)
+#end
+         canvas.set_size(orig_canvas_width, orig_canvas_height)
+
+         self.add(canvas)
+         write("orig_canvas_height: ", orig_canvas_height)
+         write("orig_canvas_width: ", orig_canvas_width)
+         write("self.get_w_reference(): ", self.get_w_reference() )
+         write("self.get_h_reference():", self.get_h_reference() )
 
          #
          # Initialize the undo/redo lists.

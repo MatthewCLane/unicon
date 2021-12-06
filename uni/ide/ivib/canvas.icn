@@ -849,9 +849,21 @@ class Canvas : Component : SelectiveClassCoding(
       local parent_dlg
       self.Component.resize()
       parent_dlg := self.get_parent_dialog()
-      WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() -
-	      self.x + 2 * EDGE || "," || parent_dlg.get_h_reference() -
-	      self.y + 2 * EDGE)
+      write(&output, "Debug canvas.icn Debug")
+      write(&output, "parent_dlg.get_w_reference(): ", parent_dlg.get_w_reference())
+      write(&output, "parent_dlg.get_h_reference(): ", parent_dlg.get_h_reference())
+      write(&output, "self.x: ", self.x)
+      write(&output, "self.y: ", self.y)
+      write(&output, "EDGE: ", EDGE)
+      write(&output, "2 * EDGE: ", 2 * EDGE)
+      write( "parent_dlg.get_w_reference() - self.x + 2 * EDGE: ", parent_dlg.get_w_reference() - self.x + 2 * EDGE )
+      write( "parent_dlg.get_h_reference() - self.y + 2 * EDGE: ", parent_dlg.get_h_reference() - self.y + 2 * EDGE)
+      if ( parent_dlg.get_h_reference() - self.y + 2 * EDGE > 0 ) then
+        WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() -
+	       self.x + 2 * EDGE || "," || parent_dlg.get_h_reference() -
+	        self.y + 2 * EDGE)
+      else
+        WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() / 5 || "," || parent_dlg.get_h_reference() / 5 )
    end
 
    #
