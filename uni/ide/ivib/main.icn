@@ -1110,10 +1110,11 @@ class Main : CommonDialog (
       self.add(c)
 
       x := 0
-      y := 25
+      y := -45
 
       mb := MenuBar()
-      mb.set_size(, y)
+      mb.set_size(, 25)
+      mb.set_pos(0, y)
       self.add(mb)
 
       set_tooltip_start_delay(0)
@@ -1360,7 +1361,7 @@ class Main : CommonDialog (
       mb.add(objects_menu)
 
       tb := CustomToolBar()
-      tb.set_pos(0, y)
+      tb.set_pos(0, y+25)
 
       every ui := !uis do {
          listener := ObjectActionListener(self, ui)
@@ -1460,21 +1461,21 @@ class Main : CommonDialog (
       button_name_label := Label()
       button_name_label.set_size(150, 25)
       button_name_label.set_draw_border()
-      button_name_label.set_pos(0, y)
+      button_name_label.set_pos(0, y+25)
       button_name_label.set_label("")
       self.add(button_name_label)
 
       filename_label := Label()
       filename_label.set_size(150, 25)
       filename_label.set_draw_border()
-      filename_label.set_pos(150, y)
+      filename_label.set_pos(150, y+25)
       filename_label.set_label("")
       self.add(filename_label)
 
       info_label := Label()
       info_label.set_size("100%-425", 25)
       info_label.set_draw_border()
-      info_label.set_pos(300, y)
+      info_label.set_pos(300, y+25)
       info_label.set_label("")
       self.add(info_label)
 
@@ -1482,7 +1483,7 @@ class Main : CommonDialog (
       pos_label.set_attribs("font=serif,10")
       pos_label.set_size(125, 25)
       pos_label.set_draw_border()
-      pos_label.set_pos("100%-125", y)
+      pos_label.set_pos("100%-125", y+25)
       pos_label.set_label("")
       self.add(pos_label)
 
@@ -1581,7 +1582,7 @@ class Main : CommonDialog (
       mdelete.connect(self, "op_Delete", ACTION_EVENT)
       self.connect(self, "op_quit", CLOSE_BUTTON_EVENT)
 
-      self.tool_area_height := y + 25
+      self.tool_area_height := y + 50
 
       height := 600
       self.set_attribs("label=Ivib", "size=" || width || "," || height)
