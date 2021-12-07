@@ -106,7 +106,7 @@ class Canvas : Component : SelectiveClassCoding(
    # Display an error message
    #
    method alert_error(s)
-      return self.parent_dialog.alert_error(s)
+      return self.parent.alert_error(s)
    end
 
    #
@@ -114,12 +114,12 @@ class Canvas : Component : SelectiveClassCoding(
    #
    method update_pos_label()
       if \self.selected then
-         self.parent_dialog.pos_label.set_label(self.selected.x_spec || "," ||
+         self.parent.pos_label.set_label(self.selected.x_spec || "," ||
 						self.selected.y_spec || " : " ||
 						self.selected.w_spec || "," ||
 						self.selected.h_spec)
       else
-         self.parent_dialog.pos_label.set_label("")
+         self.parent.pos_label.set_label("")
    end
 
    #
@@ -140,7 +140,7 @@ class Canvas : Component : SelectiveClassCoding(
    #
    method something_selected()
       if *self.selections = 0 then {
-         self.parent_dialog.info_label.set_label("Nothing selected")
+         self.parent.info_label.set_label("Nothing selected")
          fail
       }
       return
@@ -150,8 +150,8 @@ class Canvas : Component : SelectiveClassCoding(
    # Clear the current selections.
    #
    method clear_selections()
-      self.parent_dialog.shade_selection_options()
-      self.parent_dialog.pos_label.set_label("")
+      self.parent.shade_selection_options()
+      self.parent.pos_label.set_label("")
       self.reset_selections()
    end
 
@@ -203,7 +203,7 @@ class Canvas : Component : SelectiveClassCoding(
 
       something_selected() | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every t := !selections do {
          c := t.cp()
@@ -236,7 +236,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       something_selected() | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every e := !self.selections do {
          e.x_spec := "50%"
@@ -257,7 +257,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       something_selected() | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every e := !self.selections do {
          e.y_spec := "50%"
@@ -278,7 +278,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every e := !self.selections do {
          e.x_spec := selected.x_spec
@@ -299,7 +299,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every e := !self.selections do {
          e.y_spec := selected.y_spec
@@ -320,7 +320,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every e := (selected ~=== !self.selections) do {
          e.w_spec := selected.w_spec
@@ -341,7 +341,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every e := (selected ~=== !self.selections) do {
          e.h_spec := selected.h_spec
@@ -362,7 +362,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e, x1
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       x1 := selected.x - selected.parent.get_x_reference() + selected.w
 
@@ -386,7 +386,7 @@ class Canvas : Component : SelectiveClassCoding(
 
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       y1 := selected.y - selected.parent.get_y_reference() + selected.h
 
@@ -409,7 +409,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       something_selected() | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       every e := !self.selections do {
          e.attribs := selected.attribs
@@ -429,7 +429,7 @@ class Canvas : Component : SelectiveClassCoding(
 
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       #
       # Construct two GridSets.  Each item will go into each set.
@@ -472,7 +472,7 @@ class Canvas : Component : SelectiveClassCoding(
       local i, j
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       if selected.parent === self then {
          every i := 1 to *selections do {
@@ -499,7 +499,7 @@ class Canvas : Component : SelectiveClassCoding(
 
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       if *self.selections = 1 then
          return
@@ -533,7 +533,7 @@ class Canvas : Component : SelectiveClassCoding(
 
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       if *self.selections = 1 then
          return
@@ -566,7 +566,7 @@ class Canvas : Component : SelectiveClassCoding(
 
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       #
       # Construct a ComponentSort
@@ -599,7 +599,7 @@ class Canvas : Component : SelectiveClassCoding(
 
       (something_selected() & same_container()) | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       #
       # Construct a ComponentSort
@@ -694,7 +694,7 @@ class Canvas : Component : SelectiveClassCoding(
       self.modified === 1 & return
       self.modified := 1
       set_wTitle()
-      self.parent_dialog.set_filename_label()
+      self.parent.set_filename_label()
    end
 
    #
@@ -704,7 +704,7 @@ class Canvas : Component : SelectiveClassCoding(
 #         self.modified can be &null before this is called, no return.
       self.modified := &null
       set_wTitle()
-      self.parent_dialog.set_filename_label()
+      self.parent.set_filename_label()
    end
 
    #
@@ -721,7 +721,7 @@ class Canvas : Component : SelectiveClassCoding(
    method set_filename(s)
       self.filename := s
       set_wTitle()
-      self.parent_dialog.set_filename_label()
+      self.parent.set_filename_label()
    end
 
    #
@@ -794,7 +794,7 @@ class Canvas : Component : SelectiveClassCoding(
    method dup()
       local c
       c := Canvas()
-      c.parent_dialog := self.parent_dialog
+      c.parent_dialog := self.parent
       c.button_groups := self.button_groups.dup(c)
       c.checkbox_groups := self.checkbox_groups.dup(c)
       c.gen_indent := self.gen_indent
@@ -849,21 +849,12 @@ class Canvas : Component : SelectiveClassCoding(
       local parent_dlg
       self.Component.resize()
       parent_dlg := self.get_parent_dialog()
-      write(&output, "Debug canvas.icn Debug")
-      write(&output, "parent_dlg.get_w_reference(): ", parent_dlg.get_w_reference())
-      write(&output, "parent_dlg.get_h_reference(): ", parent_dlg.get_h_reference())
-      write(&output, "self.x: ", self.x)
-      write(&output, "self.y: ", self.y)
-      write(&output, "EDGE: ", EDGE)
-      write(&output, "2 * EDGE: ", 2 * EDGE)
-      write( "parent_dlg.get_w_reference() - self.x + 2 * EDGE: ", parent_dlg.get_w_reference() - self.x + 2 * EDGE )
-      write( "parent_dlg.get_h_reference() - self.y + 2 * EDGE: ", parent_dlg.get_h_reference() - self.y + 2 * EDGE)
-      if ( parent_dlg.get_h_reference() - self.y + 2 * EDGE > 0 ) then
+      if ( parent_dlg.get_h_reference() - self.y + 2 * EDGE > 0 ) || ( parent_dlg.get_w_reference() - self.x + 2 * EDGE > 0 ) then
         WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() -
 	       self.x + 2 * EDGE || "," || parent_dlg.get_h_reference() -
 	        self.y + 2 * EDGE)
       else
-        WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() / 5 || "," || parent_dlg.get_h_reference() / 5 )
+        WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() || "," || parent_dlg.get_h_reference() )
    end
 
    #
@@ -1060,7 +1051,7 @@ class Canvas : Component : SelectiveClassCoding(
       if orig_x_spec ~== x_new | orig_y_spec ~== y_new |
          orig_w_spec ~== w_new | orig_h_spec ~== h_new then {
          if /self.arrow_flag then {
-            self.parent_dialog.push_undo()
+            self.parent.push_undo()
             self.arrow_flag := 1
          }
          self.set_modified()
@@ -1187,7 +1178,7 @@ class Canvas : Component : SelectiveClassCoding(
          #
          # Not in old container.  Post a message.
          #
-         self.parent_dialog.info_label.set_label(if obj === self then
+         self.parent.info_label.set_label(if obj === self then
 			"Placed back in canvas" else "Placed inside container")
 
          #
@@ -1460,7 +1451,7 @@ class Canvas : Component : SelectiveClassCoding(
       if \self.is_held then {
          if orig_x_spec ~== moving.x_spec | orig_y_spec ~== moving.y_spec |
             orig_w_spec ~== moving.w_spec | orig_h_spec ~== moving.h_spec then {
-            self.parent_dialog.push_onto_undo(self.tmp_dup)
+            self.parent.push_onto_undo(self.tmp_dup)
             self.set_modified()
 
             if orig_w_spec ~== moving.w_spec then
@@ -1503,7 +1494,7 @@ class Canvas : Component : SelectiveClassCoding(
          # Finished resizing whole canvas.
          #
          if orig_w ~= self.w | orig_h ~= self.h then {
-            self.parent_dialog.push_onto_undo(self.tmp_dup)
+            self.parent.push_onto_undo(self.tmp_dup)
             self.set_modified()
          }
 
@@ -1540,12 +1531,12 @@ class Canvas : Component : SelectiveClassCoding(
          self.select(i, if &control then 1 else &null)
          self.invalidate()
          if not(&control) then
-            self.parent_dialog.popup_component.popup()
+            self.parent.popup_component.popup()
       } else if self.in_region() then {
          self.clear_selections()
          self.invalidate()
          if not(&control) then
-            self.parent_dialog.popup_dialog.popup()
+            self.parent.popup_dialog.popup()
       }
    end
 
@@ -1554,7 +1545,7 @@ class Canvas : Component : SelectiveClassCoding(
    #
    method fix()
       local e
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
       every e := !self.selections do
          e.y_fixed := e.x_fixed := e.h_fixed := e.w_fixed := 1
       self.set_modified()
@@ -1565,7 +1556,7 @@ class Canvas : Component : SelectiveClassCoding(
    #
    method unfix()
       local e
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
       every e := !self.selections do
          e.y_fixed := e.x_fixed := e.h_fixed := e.w_fixed := &null
       self.set_modified()
@@ -1638,7 +1629,7 @@ class Canvas : Component : SelectiveClassCoding(
    # Select c
    #
    method select(c, add)
-      self.parent_dialog.clear_selection_options()
+      self.parent.clear_selection_options()
       if \add then {
          if not(c === !selections) then
             put(selections, c)
@@ -1685,7 +1676,7 @@ class Canvas : Component : SelectiveClassCoding(
                                 in a CheckBoxGroup")
 	 }
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       #
       # Create a new group
@@ -1736,7 +1727,7 @@ class Canvas : Component : SelectiveClassCoding(
                                 in a ButtonGroup")
       }
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       #
       # Create a new button group.
@@ -1759,7 +1750,7 @@ class Canvas : Component : SelectiveClassCoding(
       local e
       something_selected() | fail
 
-      self.parent_dialog.push_undo()
+      self.parent.push_undo()
 
       #
       # For all selections...
@@ -1907,7 +1898,7 @@ class CanvasPreferencesDialog : CommonDialog(
    initially
       local label, l, ll, s, a, code_tab
       self.CommonDialog.initially()
-      c.parent_dialog.save_extra_undo()
+      c.parent.save_extra_undo()
       label := "Dialog Preferences"
       self.set_attribs("size=500,400", "label=" || label)
 

@@ -1143,7 +1143,7 @@ class IvibTab : Component(
          component_save.set_accel("s")
          selections_menu.add(component_save)
 
-#         read_config_file()
+         read_config_file()
 
          uis := [CanvasTextButtonUI(),
                  CanvasLabelUI(),
@@ -1424,10 +1424,6 @@ class IvibTab : Component(
          canvas.set_size(orig_canvas_width, orig_canvas_height)
 
          self.add(canvas)
-         write("orig_canvas_height: ", orig_canvas_height)
-         write("orig_canvas_width: ", orig_canvas_width)
-         write("self.get_w_reference(): ", self.get_w_reference() )
-         write("self.get_h_reference():", self.get_h_reference() )
 
          #
          # Initialize the undo/redo lists.
@@ -1435,7 +1431,7 @@ class IvibTab : Component(
          self.clear_undo()
          self.clear_redo()
 
-         self.shade_selection_options()
+         #self.shade_selection_options()
 
          connect(self, "handle_icon_event", ICON_EVENT)
 end
