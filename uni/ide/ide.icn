@@ -100,7 +100,8 @@ class IDE (
       local line, L, nchars, fd, dwidth, dheight, dposx, dposy,
          ufile, tab_label, found,
          which_tab, c, filedirectory
-
+      #########################################################
+      # Get filename and filedirectory if in Unix based system.
       if /filename then {
          $ifdef _UNIX
 	                fd := HFileDialog()
@@ -115,7 +116,7 @@ class IDE (
 	              # mousex := L[1]; mousey := L[2]
 	                fd.attrib("pos=" || dposx || "," || dposy)
 
-             fd.set_directory(CurrentTabItem().filedirectory)
+                  fd.set_directory(CurrentTabItem().filedirectory)
 	                fd.show_modal()
 	                filename := fd.get_result() | fail
 	                filedirectory := fd.get_directory()
@@ -125,7 +126,9 @@ class IDE (
 			                             chdir(CurrentTabItem().filedirectory)) | fail
 
          $endif
-	             }
+	    }
+     #############################################################
+     ## Get filename and filedirectory if in other based system.
       if /filename | filename=="" | filename[-1]==("\\"|"/") then
          return \uidlog.MsgBox.set_contents(["Error opening file \"" ||
 					     file_name(filename) || "\""])
@@ -142,26 +145,27 @@ class IDE (
 	          put(file_contents, line)
 	          nchars +:= *line + 1
 	          }
-
-   # We don't have a file open with the same name, so
-   # add a new tab with the file name
-   if not member(opened_files_set, filename) then {
-	    if is_binary(filename) then
-	       uidlog.MsgBox.set_contents(["Cannot open binary "||filename])
-	    else {
-	       new_tabitem(,1,file_name(filename),file_contents, filedirectory)
-         \uidlog.MsgBox.set_contents(["opened " || filename || ", " ||
+     #######################################################
+     # We don't have a file open with the same name, so
+     # add a new tab with the file name
+     if not member(opened_files_set, filename) then {
+	      if is_binary(filename) then
+	         uidlog.MsgBox.set_contents(["Cannot open binary "||filename])
+	      else {
+	         new_tabitem(,1,file_name(filename),file_contents, filedirectory)
+           \uidlog.MsgBox.set_contents(["opened " || filename || ", " ||
 				                             *file_contents || " lines, " ||
 				                             nchars || " characters"])
-	       uidlog.FileTabSet.set_which_one(CurrentTabItem())
-	       handle_update()
-	       insert(opened_files_set, filename)
-	       }
-	    }
-      else {
-	       c := uidlog.FileTabSet.get_tabitem(file_name(filename))
-	       uidlog.FileTabSet.set_which_one(\c)
-	       }
+	         uidlog.FileTabSet.set_which_one(CurrentTabItem())
+	         handle_update()
+	         insert(opened_files_set, filename)
+	      }
+	  }
+    else {
+	     c := uidlog.FileTabSet.get_tabitem(file_name(filename))
+	     uidlog.FileTabSet.set_which_one(\c)
+	  }
+      uidlog.IvibFile.op_open_file(filename)
       CurrentTabItem().filename := file_name(filename)
       CurrentTabItem().filedirectory := filename[1:-*CurrentTabItem().filename]
       uidlog.FileBrowser.addreplace(CurrentEditBox().contents,

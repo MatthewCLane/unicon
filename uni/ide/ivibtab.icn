@@ -706,9 +706,9 @@ class IvibTab : Component(
 	    else
 	       return alert_error("No Ivib layout in " || fname)
 	    }
-	 if s == v1_marker then
+	 if s == "### Ivib layout ###" then
 	    return load_v1(f, fname)
-	 if s == v2_marker then
+	 if s == "### Ivib-v2 layout ##" then
 	    return load_v2(f, fname)
 	 put(source, s)
 	 }
@@ -823,19 +823,13 @@ class IvibTab : Component(
    #
    # Open file operation.
    #
-   method op_open_file()
-      local fd, s, f, c
+   method op_open_file(filename)
+      local f, c
       if \self.canvas.modified then
          self.save_if_wanted() | fail
 
-      fd := FileDialog()
-      fd.set_directory(\last_icn_dir)
-      fd.set_fields(global_attribs)
-      fd.show_modal(self)
-      last_icn_dir := fd.get_directory()
-      s := fd.get_result() | fail
-      f := ::open(s) | return alert_error("Couldn't open " || s)
-      c := load_canvas(f, s) | fail
+      f := ::open(filename) | return alert_error("Couldn't open " || filename)
+      c := load_canvas(f, filename) | fail
       self.clear_undo()
       self.clear_redo()
       c.set_pos(self.canvas.x, self.canvas.y)
@@ -844,10 +838,9 @@ class IvibTab : Component(
       self.canvas.erase_and_display()
       self.canvas.update_pos_label()
       self.canvas.set_filename(s)
-      save.clear_is_shaded()
       popup_dialog_save_component.clear_is_shaded()
       self.canvas.clear_modified()
-      self.resize_win(canvas.w + 2 * CANVAS_SURROUND, self.tool_area_height + canvas.h + 2 * CANVAS_SURROUND)
+      #self.resize_win(canvas.w + 2 * CANVAS_SURROUND, self.tool_area_height + canvas.h + 2 * CANVAS_SURROUND)
       close(f)
    end
 
