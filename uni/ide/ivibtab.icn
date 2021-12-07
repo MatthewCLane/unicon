@@ -1397,7 +1397,7 @@ class IvibTab : Component(
 
          self.tool_area_height := y + 25
 
-         #self.set_attribs("label=Ivib", "size=" || width || "," || height)
+         self.set_attribs("label=Unicon IDE")
 
          #
          # Set up the Canvas object.
