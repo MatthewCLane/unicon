@@ -421,8 +421,7 @@ class UIDE : Dialog(
       IvibTabSet.set_size("0", "0")               #>#
       tab_item_5 := BufferTabItem()
       tab_item_5.set_label("IVIB")
-      my_ivib := Main(my_ui := self)
-      IvibFile := Component(my_ivib)
+      IvibFile := Main(my_ui := self)
 #      IvibFile.win := ("size="||width||","||height)
 #      IvibFile.buffer_win := ("size="||width||","||height)
       IvibFile.set_pos("2", "2")

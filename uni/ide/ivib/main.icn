@@ -104,7 +104,7 @@ end
 #
 $define CANVAS_SURROUND 30
 #
-class Main : CommonDialog (
+class Main : Component (
    my_ui,                   # Was this opened from UI?
    quit,                    # Quit function
    about,                   # Program version info
@@ -1103,7 +1103,7 @@ class Main : CommonDialog (
          uis, objects_menu, tb, ui, listener, mi, ui_button, width, m, height
 
       if \my_ui then {
-         self.CommonDialog.initially()
+         self.Component.initially()
 
          init_globals()
       }
@@ -1121,7 +1121,7 @@ class Main : CommonDialog (
       mb.set_size(, y)
       self.add(mb)
 
-      set_tooltip_start_delay(0)
+      #set_tooltip_start_delay(0)
 
       #
       # Set up the menu structure.
@@ -1589,8 +1589,8 @@ class Main : CommonDialog (
       self.tool_area_height := y + 25
 
       height := 600
-      self.set_attribs("label=Ivib", "size=" || width || "," || height)
-      self.set_min_size(width, height)
+      #self.set_attribs("label=Ivib", "size=" || width || "," || height)
+      #self.set_min_size(width, height)
 
       #
       # Set up the Canvas object.
