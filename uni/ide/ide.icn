@@ -1297,32 +1297,41 @@ $endif
    # IVIB
    #
    method on_ivib(ev)
-      local L := []
+      local L := [1]
       if CurrentTabItem().label==="Untitled" then {
 	       #system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
-         write("Prior to Ivib Creation - If")
-#         ivib_maindialogwindow := IvibTab()
-#         ivib_maindialogwindow.custom_show(args)
-	       write("Ivib Created - If")
-	       }
+         #write("Prior to Ivib Creation - If")
+         ivib_maindialogwindow := Main()
+         ivib_maindialogwindow.show_modal()
+         #We could open a "scratch" of ivib but that may be useless.
+         #L[1] := "Untitled"
+         #ivib_maindialogwindow.custom_show()
+	       #write("Ivib Created - If")
+	    }
       else if CurrentTabItem().label==="scratch" then {
 	       #if not system("ivib &", L) then
             #uidlog.MsgBox.set_contents(["System Failed"])
-	       write("Prior to Ivib Creation - Else If")
-#	       ivib_maindialogwindow := IvibTab()
-#         ivib_maindialogwindow.show_modal()
-	       write("Ivib Created - Else If")
-         #ivib_maindialogwindow.custom_show(args)
+	       #write("Prior to Ivib Creation - Else If")
+	       ivib_maindialogwindow := Main()
+         ivib_maindialogwindow.show_modal()
+#	       #write("Ivib Created - Else If")
+         #This would open ivib with "scratch"
+         #Also this breaks ivib because of the args.
+         #We could open a "scratch" of ivib but that may be useless.
+         #L[1] := "scratch"
+         #ivib_maindialogwindow.custom_show()
          }
       else {
 	       #if not system("ivib " || CurrentTabItem().label || "&", L) then
             #uidlog.MsgBox.set_contents(["System Failed"])
-         write("Prior Ivib Creation - Else")
-#         ivib_maindialogwindow := IvibTab()
-         write("Ivib Created - Else")
-#         ivib_maindialogwindow.custom_show(CurrentTabItem().label || L)
-	       }
-      updatefile(CurrentTabItem().label)
+         #write("Prior Ivib Creation - Else")
+         ivib_maindialogwindow := Main(my_ui := self)
+         L[1] := CurrentTabItem().label
+         ivib_maindialogwindow.custom_show(L)
+         #write("Ivib Created - Else")
+         #ivib_maindialogwindow.custom_show(CurrentTabItem().label || L)
+	     }
+       updatefile(CurrentTabItem().label)
    end
 
    #
