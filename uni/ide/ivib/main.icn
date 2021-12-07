@@ -1102,9 +1102,14 @@ class Main : CommonDialog (
       local c, mb, file, edit, alignment_sub_menu, spacing_sub_menu, copy_sub_menu,
          uis, objects_menu, tb, ui, listener, mi, ui_button, width, m, height
 
-      self.CommonDialog.initially()
+      if \my_ui then {
+         self.CommonDialog.initially()
 
-      init_globals()
+         init_globals()
+      }
+      else {
+         self.Component.initially()
+      }
 
       c := Clear(self)
       self.add(c)
