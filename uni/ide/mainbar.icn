@@ -610,10 +610,10 @@ $endif
       cur_ide_win_setup := "view_window_filesivib"
       uidlog.DevTabSet.set_pos("0", "110%")
       uidlog.DevTabSet.set_size("0", "0")
-      uidlog.FileTabSet.set_pos("0", pos_y)
-      uidlog.FileTabSet.set_size("50%", size_y)
-      uidlog.IvibTabSet.set_pos("50%", pos_y)
+      uidlog.IvibTabSet.set_pos("0", pos_y)
       uidlog.IvibTabSet.set_size("50%", size_y)
+      uidlog.FileTabSet.set_pos("50%", pos_y)
+      uidlog.FileTabSet.set_size("50%", size_y)
       uidlog.ClassTabSet.set_pos("0", "110%")
       uidlog.EditBox.set_pos("2", "2")
       uidlog.EditBox.set_size("100%-4", "100%-4")

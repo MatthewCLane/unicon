@@ -57,7 +57,7 @@ class Canvas : Component : SelectiveClassCoding(
    orig_w,
    orig_h,
    orig_x_spec,         # Original pos/size spec of an item being
-   orig_y_spec,		# resized/moved
+   orig_y_spec,		      # resized/moved
    orig_w_spec,
    orig_h_spec,
    x_new,               # New pos/size spec of an item being resized/moved
