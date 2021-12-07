@@ -1414,8 +1414,8 @@ class IvibTab : Component(
          #orig_canvas_width := width - 2 * CANVAS_SURROUND
          #orig_canvas_height := height - self.tool_area_height - 2 * CANVAS_SURROUND
          blank_window := open("u_ide_blank", "g", "canvas=hidden")
-         orig_canvas_height := WAttrib(blank_window, "displayheight") - 545
-         orig_canvas_width := WAttrib(blank_window, "displaywidth") - 1245
+         orig_canvas_height := WAttrib(blank_window, "displayheight") - 600
+         orig_canvas_width := WAttrib(blank_window, "displaywidth") - 1220
 #For reference only, this is the code for resize in canvas.icn.
 #method resize()
 #     local parent_dlg
