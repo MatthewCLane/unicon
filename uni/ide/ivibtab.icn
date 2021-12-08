@@ -18,7 +18,8 @@
 #  functionality of ivib using pre-existing classes without
 #  building to its own dialog window, but rather builds to a
 #  single component that be attached to another dialog window.
-#
+#  This allows the initial integrity of ivib's stand alone
+#  program to remain intact.
 #
 ############################################################################
 #
