@@ -1076,7 +1076,7 @@ $endif
       view_window_filesivib := TextMenuItem()
       view_window_filesivib.set_label("Files/IVIB")
       view_window_filesivib.connect(self, "on_view_window_filesivib", ACTION_EVENT)
-#      view_window_filesivib.set_img_left("16,c1,~~~~~~~~~~~~~~~~~>>>>>>>>>>>>>>~~><<<<<<<<<<<<>~~>>>>>>>>>>>>>>~~>66>`````````>~~>66>`````````>~~>66>`````````>~~>66>`````````>~~>66>`````````>~~>66>`````````>~~>66>`````````>~~>>>>>>>>>>>>>>~~>666666666666>~~>666666666666>~~>>>>>>>>>>>>>>~~~~~~~~~~~~~~~~~")
+      view_window_filesivib.set_img_left("16,c1,~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>>>>>>>>>>>>>>~~><<<<<<<<<<<<>~~>>>>>>>>>>>>>>~~>`````>>`````>~~>`````>>`````>~~>`````>>`````>~~>`````>>`````>~~>`666`>>`````>~~>`666`>>`````>~~>`666`>>`````>~~>`````>>`````>~~>`````>>`````>~~>>>>>>>>>>>>>>~~>>>>>>>>>>>>>>~~~~~~~~~~~~~~~~~")
       window_submenu.add(view_window_filesivib)
       view_window_filesclassbrowser := TextMenuItem()
       view_window_filesclassbrowser.set_label("Files/Class Browser")
