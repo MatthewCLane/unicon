@@ -851,7 +851,7 @@ class IvibTab : Component(
    method save_if_wanted()
       local d
       d := SaveChangesDialog()
-      d.show_modal(self)
+      d.parent_dialog.show_modal(self)
       case d.result() of {
          "cancel" : fail
          "no" : return
@@ -928,6 +928,13 @@ class IvibTab : Component(
       self.canvas.add(c)
       self.canvas.set_modified()
       self.canvas.invalidate()
+   end
+
+   #
+   # Push code to UI file tab.
+   #
+   method op_push_code_to_ui()
+      ide.updatefile(filename)
    end
 
    #
@@ -1270,6 +1277,13 @@ class IvibTab : Component(
          copy_button.set_tooltip("Copy")
          tb.add_button(copy_button)
 
+         push_code_button := IconButton()
+         push_code_button.set_img(
+                                  $include "ivib/icon/icon.icon"
+                                  )
+         push_code_button.set_tooltip("Push_Code")
+         tb.add_button(push_code_button)
+
          y +:= tb.h_spec + 3
          width := tb.w_spec
 
@@ -1361,6 +1375,7 @@ class IvibTab : Component(
          align_vert_button.connect(self, "op_Align_vert", ACTION_EVENT)
          grid_button.connect(self, "op_Grid", ACTION_EVENT)
          copy_button.connect(self, "op_Copy", ACTION_EVENT)
+         push_code_button.connect(self, "op_push_code_to_ui", ACTION_EVENT)
          popup_component_fix.connect(self, "op_fix", ACTION_EVENT)
          popup_component_unfix.connect(self, "op_unfix", ACTION_EVENT)
          popup_dialog_save_component .connect(self, "op_save", ACTION_EVENT)
