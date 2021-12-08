@@ -867,15 +867,6 @@ class IvibTab : Component(
       }
    end
 
-   #
-   # Quit program operation.
-   #
-   method op_quit()
-      if \self.canvas.modified then
-         self.save_if_wanted() | fail
-      self.dispose()
-   end
-
    method op_popup_dialog_component_load()
       op_component_load(popup_dialog.x - canvas.x, popup_dialog.y - canvas.y)
    end
