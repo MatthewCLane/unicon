@@ -937,7 +937,6 @@ class IvibTab : Component(
    method handle_icon_event(ev)
       case ev.get_param() of {
          "\r" : op_dialog()
-         "\^q" : op_quit()
          "\^o" : op_open_file()
          "\^w" : op_save_as()
          "\^d" : op_dialog()
@@ -1402,7 +1401,6 @@ class IvibTab : Component(
          undo.connect(self, "op_Undo", ACTION_EVENT)
          popup_component_delete.connect(self, "op_Delete", ACTION_EVENT)
          mdelete.connect(self, "op_Delete", ACTION_EVENT)
-         self.connect(self, "op_quit", CLOSE_BUTTON_EVENT)
 
          self.tool_area_height := y + 25
 
