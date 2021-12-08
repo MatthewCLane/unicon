@@ -14,7 +14,10 @@
 ############################################################################
 #
 #  This program builds the necessary compenents of ivib for IDE
-#  integration....
+#  integration. The purpose of this file is to recreate the
+#  functionality of ivib using pre-existing classes without
+#  building to its own dialog window, but rather builds to a
+#  single component that be attached to another dialog window.
 #
 #
 ############################################################################
@@ -1424,15 +1427,6 @@ class IvibTab : Component(
          blank_window := open("u_ide_blank", "g", "canvas=hidden")
          orig_canvas_height := WAttrib(blank_window, "displayheight") - 600
          orig_canvas_width := WAttrib(blank_window, "displaywidth") - 1220
-#For reference only, this is the code for resize in canvas.icn.
-#method resize()
-#     local parent_dlg
-#     self.Component.resize()
-#    parent_dlg := self.get_parent_dialog()
-#    WAttrib(Canvas_temp_win, "size=" || parent_dlg.get_w_reference() -
-#      self.x + 2 * EDGE || "," || parent_dlg.get_h_reference() -
-#      self.y + 2 * EDGE)
-#end
          canvas.set_size(orig_canvas_width, orig_canvas_height)
 
          self.add(canvas)
