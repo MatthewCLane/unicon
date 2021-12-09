@@ -838,7 +838,7 @@ class IvibTab : Component(
       self.canvas.restore()
       self.canvas.erase_and_display()
       self.canvas.update_pos_label()
-      self.canvas.set_filename(&null)
+      self.canvas.set_filename("Untitled.icn")
       popup_dialog_save_component.set_is_shaded()
       self.canvas.clear_modified()
    end

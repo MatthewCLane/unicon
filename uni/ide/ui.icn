@@ -503,7 +503,7 @@ class UIDE : Dialog(
       IvibTabSet.set_size("0", "0")               #>#
       tab_item_5 := BufferTabItem()
       tab_item_5.set_label("IVIB")
-      ivib_maindialog := IvibTab(filename_label := ide.CurrentTabItem().label)
+      ivib_maindialog := IvibTab()
       ivib_maindialog.set_pos("2", "2")
       ivib_maindialog.set_size("100%-4", "100%-4")
       ivib_maindialog.set_draw_border()
