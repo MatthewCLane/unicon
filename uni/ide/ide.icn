@@ -83,6 +83,7 @@ class IDE (
       uidlog.DevTabSet.set_which_one(uidlog.tab_item_1)
       uidlog.tab_item_1.init()
       uidlog.DevTabSet.resize()
+      uidlog.FileTabSet.resize()
       uidlog.ivib_maindialog.resize()
    end
 
@@ -93,6 +94,8 @@ class IDE (
       uidlog.DevTabSet.set_which_one(uidlog.tab_item_1)
       uidlog.tab_item_1.init()
       uidlog.DevTabSet.resize()
+      uidlog.FileTabSet.resize()
+      uidlog.ivib_maindialog.resize()
    end
 
    #

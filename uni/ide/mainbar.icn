@@ -622,9 +622,9 @@ $endif
       uidlog.EditBox.set_size("100%-4", "100%-4")
       uidlog.ivib_maindialog.reset_canvas_pos(uidlog.ivib_maindialog.canvas)
       uidlog.DevTabSet.resize()
+      uidlog.IvibTabSet.resize()
       uidlog.FileTabSet.resize()
       uidlog.ClassTabSet.resize()
-      uidlog.IvibTabSet.resize()
       uidlog.pnlToolbar.resize()
    end
 
