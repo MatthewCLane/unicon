@@ -1838,7 +1838,7 @@ class CanvasPreferencesDialog : CommonDialog(
    end
 
    method on_cancel()
-      c.parent_dialog.use_extra_undo()
+      c.parent.use_extra_undo()
       self.dispose()
    end
 
