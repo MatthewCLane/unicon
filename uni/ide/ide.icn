@@ -1309,7 +1309,7 @@ $endif
    # IVIB
    #
    method on_ivib(ev)
-      local L := [1]
+      local L := [1], my_ui
       if CurrentTabItem().label==="Untitled" then {
 	       #system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
          #write("Prior to Ivib Creation - If")
@@ -1350,7 +1350,7 @@ $endif
    # Update file method: Update IDE file to show changes from ivib.
    #
    method updatefile(filename)
-      #local
+      local found, nchars, ufile, line, c
       handle_closefile()
       if /filename | filename=="" | filename[-1]==("\\"|"/") then {
          uidlog.MsgBox.set_contents(["Error - file name missing"])

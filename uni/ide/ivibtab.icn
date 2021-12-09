@@ -555,6 +555,7 @@ class IvibTab : Component(
    #  create the file (Still have checks, just incase).
    #
    method op_save_ivib(filename)
+      local c
       # If file is not new and not modified, then don't save.
       if /self.canvas.new_file_flag & /self.canvas.modified then {
          self.info_label.set_label("No changes need to be saved")
@@ -644,7 +645,7 @@ class IvibTab : Component(
    # Given a file f, return a Canvas object
    #
    method load_canvas(f, fname)
-      local s
+      local s, cd
       source := [ ]
       repeat {
 	 if not (s := read(f)) then {
@@ -925,7 +926,8 @@ class IvibTab : Component(
 
    initially
          local c, mb, file, edit, alignment_sub_menu, spacing_sub_menu, copy_sub_menu,
-            uis, objects_menu, tb, ui, listener, mi, ui_button, width, m, height, x, y
+            uis, objects_menu, tb, ui, listener, mi, ui_button, width, m, height, x, y,
+              push_code_button, blank_window
 
          self.Component.initially()
 
