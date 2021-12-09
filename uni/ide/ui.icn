@@ -35,6 +35,8 @@ link getpaths
 link classbrowser
 link enqueue, preferences               #>#
 link stddlg
+
+# Add link for new file to build IvibTab
 link ivibtab
 
 $ifdef _MS_WINDOWS_NT
@@ -50,9 +52,13 @@ $endif
 link unigram, idol, tree, preproce, unilex, unicon, yyerror
 
 global linebreak, uidlog, browser, browserversion, docpath, UIDE_VERS,
-       is_MSWindows, PATHSEP, env, win_position, ivib_maindialog,
+       is_MSWindows, PATHSEP, env, win_position, ivib_maindialog,       #ivib_maindialog required global variable for ivib's code.icn.
        fontname
 
+#####
+# Required version markers for ivib to generate its code according to which version of ivib is currently in use.
+# For new versions, just add new maker here and set it in the initially() below.
+###
 global v1_marker, v2_marker
 
 #$define lpr "enscript -b \" \" -1 -Plex3normal"
@@ -280,8 +286,8 @@ class UIDE : Dialog(
       menubar.set_font()
       # queue up an lpress to set the initial focus to the editor buffer
       if \win then {
-	 Enqueue(\win, &lpress, EditBox.x+2, EditBox.y+2)
-	 }
+	       Enqueue(\win, &lpress, EditBox.x+2, EditBox.y+2)
+	    }
    end
 
 # Proposed function key bindings. Still under construction.
@@ -308,19 +314,19 @@ class UIDE : Dialog(
    #
    method on_function_key(ev)
       case ev.param of {
-	 Key_F1:   ide_key_file_menu()
-	 Key_F2:   ide_key_help_menu()
-	 Key_F3:   ide_handle_save()
-	 Key_F4:   ide_handle_open()
-	 Key_F5:   ide_prev_tab()
-	 Key_F6:   ide_next_tab()
-	 Key_F7:   ""#ide_handle_compile()
-	 Key_F8:   ""#ide_handle_run()
-	 Key_F9:    ""
-	 Key_F10:   ""
-	 Key_F11:   ""
-	 Key_F12:  ide_handle_exit()
-	 }
+	                Key_F1:   ide_key_file_menu()
+	                Key_F2:   ide_key_help_menu()
+	                Key_F3:   ide_handle_save()
+	                Key_F4:   ide_handle_open()
+	                Key_F5:   ide_prev_tab()
+	                Key_F6:   ide_next_tab()
+	                Key_F7:   ""#ide_handle_compile()
+	                Key_F8:   ""#ide_handle_run()
+	                Key_F9:    ""
+	                Key_F10:   ""
+	                Key_F11:   ""
+	                Key_F12:  ide_handle_exit()
+	     }
    end
 
    #
@@ -432,8 +438,8 @@ class UIDE : Dialog(
       self.min_width := 645
       self.min_height := 485
       self.set_attribs("size="||width||","||height, "pos="||win_position,
-		       "bg=pale gray",
-		       "label=Unicon IDE", "font=mono,16", "resize=on")
+                       "bg=pale gray", "label=Unicon IDE", "font=mono,16",
+		                   "resize=on")
 
       DevTabSet := TabSet()
       DevTabSet.set_pos("0", "100%-110")
@@ -498,9 +504,12 @@ class UIDE : Dialog(
       ClassTabSet.set_which_one(tab_item_3)
       self.add(ClassTabSet)
 
+      #
+      # Build Ivib components to be added to IvibTabSet.
+      #
       IvibTabSet := BufferTabSet()
       IvibTabSet.set_pos("0", "110%")
-      IvibTabSet.set_size("0", "0")               #>#
+      IvibTabSet.set_size("0", "0")
       tab_item_5 := BufferTabItem()
       tab_item_5.set_label("IVIB")
       ivib_maindialog := IvibTab()
@@ -524,6 +533,7 @@ class UIDE : Dialog(
 initially(initfile)
    self.Dialog.initially()
 
+   # Initialize version markers for ivib.
    v1_marker := "### Ivib layout ###"
    v2_marker := "### Ivib-v2 layout ##"
 
