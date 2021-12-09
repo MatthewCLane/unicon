@@ -552,76 +552,35 @@ class IvibTab : Component(
    end
 
    #
-   # Save as... operation
+   #  Save ivib operation -
+   #  One method since UI handles save as.. operation to
+   #  create the file (Still have checks, just incase).
    #
-   method op_save_as()
-      local fd, s, c
-      fd := FileDialog()
-      fd.set_fields(global_attribs)
-
-      if /self.canvas.filename then {
-         fd.set_path(\self.last_icn_dir)
-         fd.set_file("Untitled.icn")
-      } else
-         fd.set_path(self.canvas.filename)
-
-      fd.show_modal(self)
-
-      s := fd.get_result() | fail
-
-      # autoappend .icn under certain circumstances.
-      if not (s[-4:0] == ".icn") then s ||:= ".icn"
-
-      last_icn_dir := fd.get_directory()
-
+   method op_save_ivib(filename)
+      # If file is not new and not modified, then don't save.
+      if /self.canvas.new_file_flag && /self.canvas.modified then {
+         self.info_label.set_label("No changes need to be saved")
+         return
+      }
+      #Generate IVIB code for GUI implementation.
       c := self.canvas.gen_code()
 
-      if /self.canvas.filename | \self.canvas.new_file_flag then
-         c.output_code(s) | fail
+      # Add code to file or fail.
+      if /filename | \self.canvas.new_file_flag then
+         c.output_code(filename) | fail
       else
-         c.interpose_code(self.canvas.filename, s) | fail
+         c.interpose_code(filename) | fail
 
+      # Clear modified and reset filename without "*".
       self.canvas.clear_modified()
-      self.canvas.set_filename(s)
-      save.clear_is_shaded()
-      popup_dialog_save_component.clear_is_shaded()
-      self.info_label.set_label("Wrote " || s)
+      self.canvas.set_filename(filename)
+
+      # Set info_label to show what was written.
+      self.info_label.set_label("Wrote " || filename)
+
+      # Clear undo and redo buffor for ivib.
       self.clear_undo()
       self.clear_redo()
-      return
-   end
-
-   #
-   # Save operation.
-   #
-   method op_save()
-      local c
-      if /self.canvas.new_file_flag then {
-         if /self.canvas.modified then {
-            self.info_label.set_label("No changes need to be saved")
-            return
-         }
-         c := self.canvas.gen_code()
-         c.interpose_code(self.canvas.filename) | fail
-         self.canvas.clear_modified()
-         self.info_label.set_label("Wrote " || self.canvas.filename)
-         #
-         # Set modified flag of all in undo/redo buffer
-         every (!self.undo_list | !self.redo_list).modified := 1
-      } else {
-         c := self.canvas.gen_code()
-         c.output_code(self.canvas.filename) | fail
-         self.canvas.clear_modified()
-         self.info_label.set_label("Wrote " || self.canvas.filename)
-         #
-         # Set modified flag of all in undo/redo buffer
-         every (!self.undo_list | !self.redo_list).modified := 1
-         #
-         # Clear new flag of all in undo/redo buffer
-         every (!self.undo_list | !self.redo_list).new_file_flag := &null
-         self.canvas.new_file_flag := &null
-      }
-      return
    end
 
    #
@@ -829,8 +788,6 @@ class IvibTab : Component(
    #
    method op_open_file(filename)
       local f, c
-      if \self.canvas.modified then
-         self.save_if_wanted() | fail
 
       f := ::open(filename) | return alert_error("Couldn't open " || filename)
       c := load_canvas(f, filename) | fail
@@ -848,26 +805,6 @@ class IvibTab : Component(
       close(f)
    end
 
-   #
-   # Ask whether changed file should be saved; if so save it by call
-   # to appropriate operation.
-   #
-   method save_if_wanted()
-      local d
-      d := SaveChangesDialog()
-      d.parent_dialog.show_modal(self)
-      case d.result() of {
-         "cancel" : fail
-         "no" : return
-         "yes" : {
-             return if \self.canvas.filename then
-                self.op_save()
-             else
-                self.op_save_as()
-         }
-      }
-   end
-
    method op_popup_dialog_component_load()
       op_component_load(popup_dialog.x - canvas.x, popup_dialog.y - canvas.y)
    end
@@ -880,9 +817,6 @@ class IvibTab : Component(
    # New canvas operation.
    #
    method op_new()
-      if \self.canvas.modified then
-         self.save_if_wanted() | fail
-
       self.clear_undo()
       self.clear_redo()
       self.canvas.finally()
@@ -939,23 +873,13 @@ class IvibTab : Component(
       case ev.get_param() of {
          "\r" : op_dialog()
          "\^o" : op_open_file()
-         "\^w" : op_save_as()
-         "\^q" : op_quit()
          "\^d" : op_dialog()
          "\^n" : op_new()
-         "\^i" : op_handleUI()
          "\^u" : op_select_up()
-         "\^s" : if /save.is_shaded_flag then op_save()
          "\^z" : if /undo.is_shaded_flag then op_Undo()
          "\^y" : if /redo.is_shaded_flag then op_Redo()
          "\d" : op_Delete()  #swj
       }
-   end
-
-   # This method should't be reached, but incase it is
-   # call on_exit() from the mainbar.icn.
-   method op_quit()
-      self.parent_dialog.mainbar.on_exit(ev)
    end
 
    method get_config_file_name()
@@ -1379,7 +1303,6 @@ class IvibTab : Component(
          push_code_button.connect(self, "op_push_code_to_ui", ACTION_EVENT)
          popup_component_fix.connect(self, "op_fix", ACTION_EVENT)
          popup_component_unfix.connect(self, "op_unfix", ACTION_EVENT)
-         popup_dialog_save_component .connect(self, "op_save", ACTION_EVENT)
          check_boxes.connect(self, "op_check_boxes", ACTION_EVENT)
          button_groups.connect(self, "op_button_groups", ACTION_EVENT)
          centre_horiz.connect(self, "op_Centre_horiz", ACTION_EVENT)

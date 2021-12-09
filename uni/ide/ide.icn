@@ -368,6 +368,9 @@ class IDE (
 		    if \linebreak=="CRLF" then "\^m" else "")
       close(ufile)
 
+      uidlog.IvibFile.op_save_ivib(c.filename)
+
+
       \uidlog.MsgBox.set_contents([c.label || " saved."])
 
       # if we just saved a project source file then we want to
@@ -1610,13 +1613,14 @@ $endif
    #
    method save()
       if CurrentTabItem().label == ("Untitled"|"scratch") then {
-	 saveas()
-	 }
+	       saveas()
+	    }
       else {
-	 save_file(CurrentTabItem().label)
-	 }
+	       save_file(CurrentTabItem().label)
+	    }
       modified := &null
    end
+
    #
    #  Save As Menu Item Method
    #
