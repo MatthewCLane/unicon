@@ -237,6 +237,7 @@ class IDE (
 	          else save_file(c)
          }
       }
+      # Check for modifications in ivib tab.
       if \uidlog.ivib_maindialog.canvas.modified then save_file(c)
    end
 
