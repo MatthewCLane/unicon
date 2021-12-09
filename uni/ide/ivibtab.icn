@@ -18,7 +18,8 @@
 #  functionality of ivib using pre-existing classes without
 #  building to its own dialog window, but rather builds to a
 #  single component that be attached to another dialog window.
-#
+#  This allows the initial integrity of ivib's stand alone
+#  program to remain intact.
 #
 ############################################################################
 #
@@ -840,7 +841,7 @@ class IvibTab : Component(
       self.undo_to(c)
       self.canvas.erase_and_display()
       self.canvas.update_pos_label()
-      self.canvas.set_filename(s)
+      self.canvas.set_filename(filename)
       popup_dialog_save_component.clear_is_shaded()
       self.canvas.clear_modified()
       #self.resize_win(canvas.w + 2 * CANVAS_SURROUND, self.tool_area_height + canvas.h + 2 * CANVAS_SURROUND)
@@ -928,7 +929,7 @@ class IvibTab : Component(
    # Push code to UI file tab.
    #
    method op_push_code_to_ui()
-      ide.updatefile(filename)
+      ide.updatefile(self.canvas.filename)
    end
 
    #
@@ -939,6 +940,7 @@ class IvibTab : Component(
          "\r" : op_dialog()
          "\^o" : op_open_file()
          "\^w" : op_save_as()
+         "\^q" : op_quit()
          "\^d" : op_dialog()
          "\^n" : op_new()
          "\^i" : op_handleUI()
@@ -948,6 +950,12 @@ class IvibTab : Component(
          "\^y" : if /redo.is_shaded_flag then op_Redo()
          "\d" : op_Delete()  #swj
       }
+   end
+
+   # This method should't be reached, but incase it is
+   # call on_exit() from the mainbar.icn.
+   method op_quit()
+      self.parent_dialog.mainbar.on_exit(ev)
    end
 
    method get_config_file_name()
