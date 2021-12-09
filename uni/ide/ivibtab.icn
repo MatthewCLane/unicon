@@ -433,7 +433,7 @@ class IvibTab : Component(
       else {
          t := canvas.dup()
          d := canvas.selected.dialog()
-         d.show_modal(self)
+         d.show_modal(self.parent_dialog)
          if \d.get_okay_result() then {
             self.push_onto_undo(t)
             canvas.set_modified()
@@ -496,7 +496,7 @@ class IvibTab : Component(
       local t, d
       t := self.canvas.dup()
       d := canvas.dialog()
-      d.show_modal(self)
+      d.show_modal(self.parent_dialog)
       if \d.get_okay_result() then {
          self.push_onto_undo(t)
          self.canvas.set_modified()
@@ -511,7 +511,7 @@ class IvibTab : Component(
    method op_prog_preferences()
       local d
       d := Preferences(self)
-      d.show_modal(self)
+      d.show_modal(self.parent_dialog)
    end
 
    #
@@ -521,7 +521,7 @@ class IvibTab : Component(
       local t, d
       t := self.canvas.dup()
       d := GroupSetDialog(canvas.checkbox_groups)
-      d.show_modal(self)
+      d.show_modal(self.parent_dialog)
       if \d.get_okay_result() then {
          self.push_onto_undo(t)
          self.canvas.set_modified()
@@ -535,7 +535,7 @@ class IvibTab : Component(
       local t, d
       t := self.canvas.dup()
       d := GroupSetDialog(canvas.button_groups)
-      d.show_modal(self)
+      d.show_modal(self.parent_dialog)
       if \d.get_okay_result() then {
          self.push_onto_undo(t)
          self.canvas.set_modified()
@@ -600,9 +600,9 @@ class IvibTab : Component(
    method op_component_load(x, y)
       local fd, s, f, c, d
       fd := FileDialog()
-      fd.set_fields(global_attribs)
+      fd.set_fields(["bg=light gray", "fg=black", "font=serif", "resize=on"])
       fd.set_directory(\last_layout_dir)
-      fd.show_modal(self)
+      fd.show_modal(self.parent_dialog)
       s := fd.get_result() | fail
       last_layout_dir := fd.get_directory()
       f := ::open(s) | return uidlog.MsgBox.set_contents("Couldn't open " || s)
@@ -758,7 +758,7 @@ class IvibTab : Component(
       # simply be saved.
       #
       c.modified := 1
-      d.show_modal(self)
+      d.show_modal(self.parent_dialog)
       return c
    end
 
