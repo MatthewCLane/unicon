@@ -819,9 +819,7 @@ class IvibTab : Component(
       self.canvas.erase_and_display()
       self.canvas.update_pos_label()
       self.canvas.set_filename(&null)
-      save.set_is_shaded()
       popup_dialog_save_component.set_is_shaded()
-      self.shade_selection_options()
       self.canvas.clear_modified()
    end
 

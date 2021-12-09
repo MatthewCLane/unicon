@@ -78,10 +78,12 @@ class IDE (
    method on_new_btn(ev)
       new_tabitem( , 0, "", "", CurrentTabItem().filedirectory)
 
+      uidlog.ivib_maindialog.op_new()
       uidlog.tab_item_1.set_label("Messages:")
       uidlog.DevTabSet.set_which_one(uidlog.tab_item_1)
       uidlog.tab_item_1.init()
       uidlog.DevTabSet.resize()
+      uidlog.ivib_maindialog.resize()
    end
 
    method on_open_btn(ev)
