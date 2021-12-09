@@ -50,7 +50,6 @@ class IvibTab : Component(
    check_boxes,             # Check boxes control dialog
    selections_menu,         # Selections menu
    button_groups,           # Button groups control dialog
-   button_name_label,       # Label for name of button under pointer
    filename_label,          # Label for current filename
    info_label,              # Label for other info
    pos_label,               # Label for positional info
@@ -112,14 +111,6 @@ class IvibTab : Component(
    last_icn_dir,
    source		    # source file (list of strings)
    )
-
-   method show_tooltip(x, y, label)
-      self.button_name_label.set_label(label.tooltip)
-   end
-
-   method hide_tooltip()
-      self.button_name_label.set_label("")
-   end
 
    #
    # Shade buttons/menu relating to selections.
@@ -558,7 +549,7 @@ class IvibTab : Component(
    #
    method op_save_ivib(filename)
       # If file is not new and not modified, then don't save.
-      if /self.canvas.new_file_flag && /self.canvas.modified then {
+      if /self.canvas.new_file_flag & /self.canvas.modified then {
          self.info_label.set_label("No changes need to be saved")
          return
       }
@@ -614,10 +605,10 @@ class IvibTab : Component(
       fd.show_modal(self)
       s := fd.get_result() | fail
       last_layout_dir := fd.get_directory()
-      f := ::open(s) | return alert_error("Couldn't open " || s)
+      f := ::open(s) | return uidlog.MsgBox.set_contents("Couldn't open " || s)
 
       if not(c := lang::decode(read(f))) then
-         return alert_error("Invalid file format")
+         return uidlog.MsgBox.set_contents("Invalid file format")
 
       self.push_undo()
 
@@ -661,17 +652,17 @@ class IvibTab : Component(
 	       close(f)
 	       source := [ ]
 	       if f := open(fname) then {
-		  alert_error("added an Ivib interface")
+		  uidlog.MsgBox.set_contents("added an Ivib interface")
 		  next
 		  }
-	       else return alert_error("Failed to append layout to " || fname)
+	       else return uidlog.MsgBox.set_contents("Failed to append layout to " || fname)
 	       }
 	    else
-	       return alert_error("No Ivib layout in " || fname)
+	       return uidlog.MsgBox.set_contents("No Ivib layout in " || fname)
 	    }
-	 if s == "### Ivib layout ###" then
+	 if s == v1_marker then
 	    return load_v1(f, fname)
-	 if s == "### Ivib-v2 layout ##" then
+	 if s == v2_marker then
 	    return load_v2(f, fname)
 	 put(source, s)
 	 }
@@ -738,7 +729,7 @@ class IvibTab : Component(
             break
       }
       if *t = 0 then
-         return alert_error("Misformed Ivib layout in " || fname)
+         return uidlog.MsgBox.set_contents("Misformed Ivib layout in " || fname)
 
       return t
    end
@@ -750,9 +741,9 @@ class IvibTab : Component(
       local s, c, d
 
       s := load_layout(f, fname)
-      s := migrate(s) |  return alert_error("Unable to migrate " || s)
+      s := migrate(s) |  return uidlog.MsgBox.set_contents("Unable to migrate " || s)
       if not(c := lang::decode(s)) then
-         return alert_error("Invalid file format")
+         return uidlog.MsgBox.set_contents("Invalid file format")
 
       d := InfoDialog(["Ivib v1 file successfully loaded.",
                        "",
@@ -778,7 +769,7 @@ class IvibTab : Component(
       local s, c
       s := load_layout(f, fname)
       if not(c := lang::decode(s)) then
-         return alert_error("Invalid file format")
+         return uidlog.MsgBox.set_contents("Invalid file format")
 
       return c
    end
@@ -789,7 +780,7 @@ class IvibTab : Component(
    method op_open_file(filename)
       local f, c
 
-      f := ::open(filename) | return alert_error("Couldn't open " || filename)
+      f := ::open(filename) | return uidlog.MsgBox.set_contents("Couldn't open " || filename)
       c := load_canvas(f, filename) | fail
       self.clear_undo()
       self.clear_redo()
@@ -863,6 +854,7 @@ class IvibTab : Component(
    # Push code to UI file tab.
    #
    method op_push_code_to_ui()
+      ide.on_save_btn()
       ide.updatefile(self.canvas.filename)
    end
 
@@ -895,7 +887,7 @@ class IvibTab : Component(
       if f := ::open(get_config_file_name()) then {
          if not(self.prefs := lang::decode(read(f))) then {
             self.prefs := Prefs()
-            return alert_error("Invalid config file format")
+            return uidlog.MsgBox.set_contents("Invalid config file format")
          }
       } else
          self.prefs := Prefs()
@@ -903,7 +895,7 @@ class IvibTab : Component(
 
    method save_config_file()
       local f
-      f := ::open(get_config_file_name(), "w") | return alert_error("Couldn't open config file : " || get_config_file_name())
+      f := ::open(get_config_file_name(), "w") | return uidlog.MsgBox.set_contents("Couldn't open config file : " || get_config_file_name())
 
       write(f, lang::encode(self.prefs))
 
@@ -1217,24 +1209,17 @@ class IvibTab : Component(
          #
          # Create the three text labels below the tool bar.
          #
-         button_name_label := Label()
-         button_name_label.set_size(150, 25)
-         button_name_label.set_draw_border()
-         button_name_label.set_pos(0, y)
-         button_name_label.set_label("")
-         self.add(button_name_label)
-
          filename_label := Label()
          filename_label.set_size(150, 25)
          filename_label.set_draw_border()
-         filename_label.set_pos(150, y)
+         filename_label.set_pos(0, y)
          filename_label.set_label("")
          self.add(filename_label)
 
          info_label := Label()
-         info_label.set_size("100%-425", 25)
+         info_label.set_size("100%-275", 25)
          info_label.set_draw_border()
-         info_label.set_pos(300, y)
+         info_label.set_pos(150, y)
          info_label.set_label("")
          self.add(info_label)
 

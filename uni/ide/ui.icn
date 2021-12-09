@@ -50,8 +50,10 @@ $endif
 link unigram, idol, tree, preproce, unilex, unicon, yyerror
 
 global linebreak, uidlog, browser, browserversion, docpath, UIDE_VERS,
-       is_MSWindows, PATHSEP, env, win_position, IvibFile,
+       is_MSWindows, PATHSEP, env, win_position, ivib_maindialog,
        fontname
+
+global v1_marker, v2_marker
 
 #$define lpr "enscript -b \" \" -1 -Plex3normal"
 ##$define HELP_PATH "help"
@@ -64,7 +66,7 @@ class UIDE : Dialog(
    pnlToolbar, menubar,
    MsgBox, EditBox, PtyBox,
    FileTabSet,ClassTabSet, DevTabSet, IvibTabSet,
-   FileBrowser, IvibFile,
+   FileBrowser, ivib_maindialog,
    tab_item_1, tab_item_2, tab_item_3, tab_item_4, tab_item_5,
    ui_Preferences
    )
@@ -501,12 +503,12 @@ class UIDE : Dialog(
       IvibTabSet.set_size("0", "0")               #>#
       tab_item_5 := BufferTabItem()
       tab_item_5.set_label("IVIB")
-      IvibFile := IvibTab(filename_label := ide.CurrentTabItem().label)
-      IvibFile.set_pos("2", "2")
-      IvibFile.set_size("100%-4", "100%-4")
-      IvibFile.set_draw_border()
-      IvibFile.set_attribs("bg=white")
-      tab_item_5.add(IvibFile)
+      ivib_maindialog := IvibTab(filename_label := ide.CurrentTabItem().label)
+      ivib_maindialog.set_pos("2", "2")
+      ivib_maindialog.set_size("100%-4", "100%-4")
+      ivib_maindialog.set_draw_border()
+      ivib_maindialog.set_attribs("bg=white")
+      tab_item_5.add(ivib_maindialog)
       IvibTabSet.add(tab_item_5)
       IvibTabSet.set_which_one(tab_item_5)
       self.add(IvibTabSet)
@@ -522,8 +524,11 @@ class UIDE : Dialog(
 initially(initfile)
    self.Dialog.initially()
 
+   v1_marker := "### Ivib layout ###"
+   v2_marker := "### Ivib-v2 layout ##"
+
    # contains the main ide functions
-   ide := IDE(FileTabSet, ClassTabSet, IvibTabSet, FileBrowser, IvibFile)
+   ide := IDE(FileTabSet, ClassTabSet, IvibTabSet, FileBrowser, ivib_maindialog)
    uidlog := self
    menubar := Mainbar(UProject())
    startfile := initfile

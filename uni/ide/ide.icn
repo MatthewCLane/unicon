@@ -165,7 +165,7 @@ class IDE (
 	     c := uidlog.FileTabSet.get_tabitem(file_name(filename))
 	     uidlog.FileTabSet.set_which_one(\c)
 	  }
-      uidlog.IvibFile.op_open_file(filename)
+      uidlog.ivib_maindialog.op_open_file(filename)
       CurrentTabItem().filename := file_name(filename)
       CurrentTabItem().filedirectory := filename[1:-*CurrentTabItem().filename]
       uidlog.FileBrowser.addreplace(CurrentEditBox().contents,
@@ -235,6 +235,7 @@ class IDE (
 	          else save_file(c)
          }
       }
+      if \uidlog.ivib_maindialog.canvas.modified then save_file(c)
    end
 
    method on_saveas_btn(ev)
@@ -368,7 +369,7 @@ class IDE (
 		    if \linebreak=="CRLF" then "\^m" else "")
       close(ufile)
 
-      uidlog.IvibFile.op_save_ivib(c.filename)
+      uidlog.ivib_maindialog.op_save_ivib(c.filename)
 
 
       \uidlog.MsgBox.set_contents([c.label || " saved."])
