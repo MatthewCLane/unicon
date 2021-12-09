@@ -113,6 +113,13 @@ class IvibTab : Component(
    )
 
    #
+   #  Handle alert_error from child classes.
+   #
+   method alert_error(s)
+      uidlog.MsgBox.set_contents("Error at - ", s)
+   end
+
+   #
    # Shade buttons/menu relating to selections.
    #
    method shade_selection_options()
@@ -553,6 +560,8 @@ class IvibTab : Component(
          self.info_label.set_label("No changes need to be saved")
          return
       }
+      self.source := filename
+
       #Generate IVIB code for GUI implementation.
       c := self.canvas.gen_code()
 
@@ -683,6 +692,8 @@ class IvibTab : Component(
       "   end",
       "",
       "   method end_dialog()",
+      "      #To close overall program use: exit(0)",
+      "      #To close a single dialog window use: dispose()",
       "   end",
       "",
       "   method init_dialog()",
@@ -694,6 +705,7 @@ class IvibTab : Component(
       "",
       "   initially",
       "      self.Dialog.initially()",
+      "      self.connect(self, \"dispose\", CLOSE_BUTTON_EVENT)",
       "end",
       "",
       "#You can invoke your ivib layout with something like this:",
