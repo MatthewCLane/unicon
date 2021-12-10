@@ -6,6 +6,15 @@
 # Author: Robert Parlett (parlett@dial.pipex.com)
 #
 
+# Note :- some instances of parent_dialog have been changed for
+#         ivib integration purposes. May cause issues with ivib's
+#         stand alone version.
+#
+#         Further development of canvas should reflect similar
+#         changes to allow canvas to be built to whatever parent may
+#         be rather than expecting the parent to be the dialog itself.
+#         Otherwise, the UI/ivib integrated state will beak.
+
 import lang
 import gui
 

@@ -111,11 +111,17 @@ class IvibTab : Component(
    )
 
    #
-   #  Handle alert_error from child classes.
+   #  Handle alert_error from child classes and displays them in Message Box in UI.
+   #  -main.icn handles alert_error by passing the alert_error up to CommonDialog
+   #   where it is handled.
    #
    method alert_error(s)
       uidlog.MsgBox.set_contents("Error at - ", s)
    end
+
+########################################################
+# Set state for shading of the selection menu option.
+#
 
    #
    # Shade buttons/menu relating to selections.
@@ -130,6 +136,10 @@ class IvibTab : Component(
    method clear_selection_options()
       selections_menu.clear_is_shaded()
    end
+
+########################################################
+# Methods for undo and redo functionality.
+#
 
    #
    # Clear undo list
@@ -196,17 +206,6 @@ class IvibTab : Component(
       push(redo_list, d)
       self.redo.clear_is_shaded()
       self.redo_button.clear_is_shaded()
-   end
-
-   #
-   # Set filename_label to reflect current status of canvas.
-   #
-   method set_filename_label()
-      local s
-      s := \self.canvas.filename | "Untitled"
-      if \self.canvas.modified then
-         s ||:= " *"
-      self.filename_label.set_label(file_name(s))
    end
 
 
@@ -286,7 +285,6 @@ class IvibTab : Component(
 
       if self.parent_dialog.focus === self.canvas then
          self.parent_dialog.focus := &null
-
       every i := 1 to *self.children do
          if self.children[i] === self.canvas then {
             self.children[i] := self.canvas := c
@@ -305,8 +303,27 @@ class IvibTab : Component(
       else
          self.shade_selection_options()
 
-      return
+        return
+      end
+
+########################################################
+# Method to set filename of canvas object.
+#
+
+   #
+   # Set filename_label to reflect current status of canvas.
+   #
+   method set_filename_label()
+      local s
+      s := \self.canvas.filename | "Untitled"
+      if \self.canvas.modified then
+         s ||:= " *"
+      self.filename_label.set_label(file_name(s))
    end
+
+########################################################
+# Methods for component alignment in canvas.
+#
 
    #
    # Centre horizontally operation.
@@ -420,33 +437,10 @@ class IvibTab : Component(
       canvas.copy_attribs()
    end
 
-   #
-   # Copy operation.
-   #
-   method op_Copy()
-      canvas.copy_selections()
-   end
-
-   #
-   # Dialog (Ctrl-d) function.
-   #
-   method op_dialog()
-      local d, t
-
-      if /self.canvas.selected then
-         op_preferences()
-      else {
-         t := canvas.dup()
-         d := canvas.selected.dialog()
-         d.show_modal(self.parent_dialog)
-         if \d.get_okay_result() then {
-            self.push_onto_undo(t)
-            canvas.set_modified()
-            canvas.invalidate()
-            canvas.update_pos_label()
-         }
-      }
-   end
+########################################################
+# Methods to create components and add them to the
+#  canvas.
+#
 
    #
    # Add a new CanvasComponent using the given CanvasComponentUI to
@@ -473,6 +467,18 @@ class IvibTab : Component(
       canvas.selections_to_bg()
    end
 
+########################################################
+# Methods to for copy, and deletion of components
+# + fixing, and unfixing components position.
+#
+
+   #
+   # Copy the selected objects.
+   #
+   method op_Copy()
+      canvas.copy_selections()
+   end
+
    #
    # Delete the selected objects.
    #
@@ -494,6 +500,14 @@ class IvibTab : Component(
       canvas.unfix()
    end
 
+########################################################
+# Methods to create and open dialog windows for canvas
+#  preferences.
+#
+# -These methods have been changed to handle show_modal
+#  appropriately for ivib integration with UI.
+#
+
    #
    # Canvas dialog preferences.
    #
@@ -507,6 +521,27 @@ class IvibTab : Component(
          self.canvas.set_modified()
          self.canvas.erase_and_display()
          self.canvas.update_pos_label()
+      }
+   end
+
+   #
+   # Dialog (Ctrl-d) function.
+   #
+   method op_dialog()
+      local d, t
+
+      if /self.canvas.selected then
+         op_preferences()
+      else {
+         t := canvas.dup()
+         d := canvas.selected.dialog()
+         d.show_modal(self.parent_dialog)
+         if \d.get_okay_result() then {
+            self.push_onto_undo(t)
+            canvas.set_modified()
+            canvas.invalidate()
+            canvas.update_pos_label()
+         }
       }
    end
 
@@ -548,9 +583,31 @@ class IvibTab : Component(
    end
 
    #
-   #  Save ivib operation -
-   #  One method since UI handles save as.. operation to
-   #  create the file (Still have checks, just incase).
+   #    --Temporarily removed--
+   # Maybe be added to UI if wanted.
+   #
+   # About operation.
+   #
+#   method op_about()
+#      local d
+#      d := InfoDialog(["Ivib Version : " || version_number,
+#                       "Date : " || version_date,
+#                       "Author : " || version_author], "About ivib")
+#      d.show_modeless(self)
+#      return
+#   end
+
+########################################################
+# Method for saving ivib configuration and generating
+# the code for future use.
+#
+# -These methods have been simplified to one save
+#  method since UI handles save.. and saveas..
+#  operations.
+#
+
+   #
+   # Save ivib operation
    #
    method op_save_ivib(filename)
       local c
@@ -582,25 +639,10 @@ class IvibTab : Component(
       self.clear_redo()
    end
 
-   #
-   # About operation.
-   #
-   method op_about()
-      local d
-      d := InfoDialog(["Ivib Version : " || version_number,
-                       "Date : " || version_date,
-                       "Author : " || version_author], "About ivib")
-      d.show_modeless(self)
-
-      return
-   end
-
-   #
-   # Save component
-   #
-   method op_component_save()
-      canvas.component_save()
-   end
+########################################################
+# Method for loading canvas, components, and layouts
+# for v1 and v2 of ivib.
+#
 
    #
    # Load component operation.
@@ -676,59 +718,6 @@ class IvibTab : Component(
 	 }
    end
 
-   #
-   # Append an (empty/default) ivib interface to a source file that
-   # doesn't have one.  f must be a file open for writing, at the
-   # end after having written a copy of the non-ivib program.
-   #
-   method append_ivib(f)
-   L := ["import gui",
-      "$include \"guih.icn\"",
-      "",
-      "class Untitled : Dialog()",
-      "   method component_setup()",
-      "      self.setup()",
-      "   end",
-      "",
-      "   method end_dialog()",
-      "      #To close overall program use: exit(0)",
-      "      #To close a single dialog window use: dispose()",
-      "   end",
-      "",
-      "   method init_dialog()",
-      "   end",
-      "",
-      "   method setup()",
-      "      self.set_attribs(\"size=644,399\")",
-      "   end",
-      "",
-      "   initially",
-      "      self.Dialog.initially()",
-      "      self.connect(self, \"dispose\", CLOSE_BUTTON_EVENT)",
-      "end",
-      "",
-      "#You can invoke your ivib layout with something like this:",
-      "#procedure main()",
-      "#   local d",
-      "#   d := Untitled()",
-      "#   d.show_modal()",
-      "#end",
-      "",
-      "### Ivib-v2 layout ##",
-      "#class|Canvas|17|Name Table|table|integer|0|1|string|label|integer|1|Su",
-      "#perClass Name|string|Dialog|Import Name|string|gui|Button Groups|class",
-      "#|ButtonGroupSet|2|Parent Canvas|1|Boxes|list|0|Checkbox Groups|class|C",
-      "#heckBoxGroupSet|2|Parent Canvas|1|Boxes|list|0|Gen Indent|integer|3|Ge",
-      "#n Main|integer|1|Gen Component Setup|integer|1|Gen Init Dialog|integer",
-      "#|1|Gen Initially|integer|1|Dialog Struct|class|CDialog|4|Min Width|nul",
-      "#l|Min Height|null|Ticker Rate|null|Attribs|list|0|Name|string|Untitled",
-      "#|Width|integer|644|Height|integer|399|Items|list|0|Initial Focus|null|",
-      "#Event Handlers|null|"
-      ]
-   every write(f, !L)
-   end
-
-
    method load_layout(f, fname)
       local s, t
       t := ""
@@ -785,6 +774,90 @@ class IvibTab : Component(
       return c
    end
 
+################################################################
+# Append an (empty/default) ivib interface to a source file that
+# doesn't have one.  f must be a file open for writing, at the
+# end after having written a copy of the non-ivib program.
+#
+# The code here has been modified to add close operation to
+# the window close action event. Also instructions for
+# terminating a program and dispose of a single dialog window
+# have been added as well in comments.
+
+   #
+   # Append gui code to file.
+   #
+   method append_ivib(f)
+   L := ["import gui",
+      "$include \"guih.icn\"",
+      "",
+      "class Untitled : Dialog()",
+      "   method component_setup()",
+      "      self.setup()",
+      "   end",
+      "",
+      "   method end_dialog()",
+      "      #To close overall program use: exit(0)",
+      "      #To close a single dialog window use: dispose()",
+      "   end",
+      "",
+      "   method init_dialog()",
+      "   end",
+      "",
+      "   method setup()",
+      "      self.set_attribs(\"size=644,399\")",
+      "   end",
+      "",
+      "   initially",
+      "      self.Dialog.initially()",
+      "      self.connect(self, \"dispose\", CLOSE_BUTTON_EVENT)",
+      "end",
+      "",
+      "#You can invoke your ivib layout with something like this:",
+      "#procedure main()",
+      "#   local d",
+      "#   d := Untitled()",
+      "#   d.show_modal()",
+      "#end",
+      "",
+      "### Ivib-v2 layout ##",
+      "#class|Canvas|17|Name Table|table|integer|0|1|string|label|integer|1|Su",
+      "#perClass Name|string|Dialog|Import Name|string|gui|Button Groups|class",
+      "#|ButtonGroupSet|2|Parent Canvas|1|Boxes|list|0|Checkbox Groups|class|C",
+      "#heckBoxGroupSet|2|Parent Canvas|1|Boxes|list|0|Gen Indent|integer|3|Ge",
+      "#n Main|integer|1|Gen Component Setup|integer|1|Gen Init Dialog|integer",
+      "#|1|Gen Initially|integer|1|Dialog Struct|class|CDialog|4|Min Width|nul",
+      "#l|Min Height|null|Ticker Rate|null|Attribs|list|0|Name|string|Untitled",
+      "#|Width|integer|644|Height|integer|399|Items|list|0|Initial Focus|null|",
+      "#Event Handlers|null|"
+      ]
+   every write(f, !L)
+   end
+
+########################################################
+# Methods for handling new or opening existing files.
+# -These methods are now called by UI's method.
+#
+
+   #
+   # New canvas operation.
+   #
+   method op_new()
+      self.clear_undo()
+      self.clear_redo()
+      self.canvas.finally()
+      self.canvas.new()
+      self.canvas.set_size(orig_canvas_width, orig_canvas_height)
+      self.canvas.set_parent(self)
+      self.canvas.init()
+      self.canvas.restore()
+      self.canvas.erase_and_display()
+      self.canvas.update_pos_label()
+      self.canvas.set_filename("Untitled.icn")
+      popup_dialog_save_component.set_is_shaded()
+      self.canvas.clear_modified()
+   end
+
    #
    # Open file operation.
    #
@@ -806,41 +879,29 @@ class IvibTab : Component(
       close(f)
    end
 
-   #
-   # Reposition canvas to static position.
-   #
-   method reset_canvas_pos(canvas)
-      canvas.set_pos(CANVAS_SURROUND, self.tool_area_height + CANVAS_SURROUND)
-      canvas.erase_and_display()
-      self.canvas.update_pos_label()
-      self.resize()
-   end
+########################################################
+# Component operations
+#
 
+   #
+   # Popup Dialog to set component load position.
+   #
    method op_popup_dialog_component_load()
       op_component_load(popup_dialog.x - canvas.x, popup_dialog.y - canvas.y)
    end
 
+   #
+   # Load component at position (10, 10)
+   #
    method op_component_load_10()
       op_component_load(10, 10)
    end
 
    #
-   # New canvas operation.
+   # Save component
    #
-   method op_new()
-      self.clear_undo()
-      self.clear_redo()
-      self.canvas.finally()
-      self.canvas.new()
-      self.canvas.set_size(orig_canvas_width, orig_canvas_height)
-      self.canvas.set_parent(self)
-      self.canvas.init()
-      self.canvas.restore()
-      self.canvas.erase_and_display()
-      self.canvas.update_pos_label()
-      self.canvas.set_filename("Untitled.icn")
-      popup_dialog_save_component.set_is_shaded()
-      self.canvas.clear_modified()
+   method op_component_save()
+      canvas.component_save()
    end
 
    #
@@ -868,29 +929,20 @@ class IvibTab : Component(
       self.canvas.invalidate()
    end
 
-   #
-   # Push code to UI file tab.
-   #
-   method op_push_code_to_ui()
-      ide.on_save_btn()
-      ide.updatefile(self.canvas.filename)
-   end
 
    #
-   # Handle dialog events.
+   # Reset canvas position to avoid canvas shifting problem.
    #
-   method handle_icon_event(ev)
-      case ev.get_param() of {
-         "\r" : op_dialog()
-         "\^o" : op_open_file()
-         "\^d" : op_dialog()
-         "\^n" : op_new()
-         "\^u" : op_select_up()
-         "\^z" : if /undo.is_shaded_flag then op_Undo()
-         "\^y" : if /redo.is_shaded_flag then op_Redo()
-         "\d" : op_Delete()  #swj
-      }
+   method reset_canvas_pos(canvas)
+      canvas.set_pos(CANVAS_SURROUND, self.tool_area_height + CANVAS_SURROUND)
+      canvas.erase_and_display()
+      self.canvas.update_pos_label()
+      self.resize()
    end
+
+########################################################
+# Methods for handling configuration files.
+#
 
    method get_config_file_name()
       local s
@@ -921,6 +973,34 @@ class IvibTab : Component(
       return
    end
 
+########################################################
+
+   #
+   # Handle dialog events.
+   #
+   method handle_icon_event(ev)
+      case ev.get_param() of {
+         "\r" : op_dialog()
+         "\^o" : op_open_file()
+         "\^d" : op_dialog()
+         "\^n" : op_new()
+         "\^u" : op_select_up()
+         "\^z" : if /undo.is_shaded_flag then op_Undo()
+         "\^y" : if /redo.is_shaded_flag then op_Redo()
+         "\d" : op_Delete()  #swj
+      }
+   end
+
+   #
+   # Push code to UI file tab.
+   # -Gives functionality for ivib's integration with ui.
+   #
+   method op_push_code_to_ui()
+      ide.on_save_btn()
+      ide.updatefile(self.canvas.filename)
+   end
+
+
 
    initially
          local c, mb, file, edit, alignment_sub_menu, spacing_sub_menu, copy_sub_menu,
@@ -928,7 +1008,6 @@ class IvibTab : Component(
               push_code_button, blank_window
 
          self.Component.initially()
-
 
          c := Clear(self)
          self.add(c)
