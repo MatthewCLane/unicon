@@ -1011,12 +1011,12 @@ $endif
 	 return "couldn't load saved settings"
    end
 
-   #
+   # Disabling this as it breaks Ivib - Matthew Lane
    # IVIB
    #
-   method on_ivib(ev)
-      ide.on_ivib(ev)
-   end
+   #method on_ivib(ev)
+   #   ide.on_ivib(ev)
+   #end
 
    #
    # IDE Main Menu Bar Method: Adds a simple menubar into the IDE tab.
@@ -1059,10 +1059,11 @@ $endif
       saveas_file.connect(self, "on_saveas_file", ACTION_EVENT)
       saveas_file.set_img_left("16,c1,~~~~~~~~~~~~~~~~~>>>>>>>>~~~~~~~~>666666>>~~~~~~~>666666>>>~~~~~~>66666666>~~~~~~>666>>>>>>>>>>~~>666>`>6666>6>~~>666>`>6666>>>~~>666>`>6666>`>~~>666>``>>>>``>~~>666>````````>~~>666>``>>>>``>~~>>>>>`>>>>6>`>~~~~~~>`>>>>6>`>~~~~~~~>>>>>>>>>~~~~~~~~~~~~~~~~~")
       menu_1.add(saveas_file)
-      ivib := TextMenuItem()
-      ivib.set_label("Ivib")
-      ivib.connect(self, "on_ivib", ACTION_EVENT)
-      menu_1.add(ivib)
+      #Disabling this as it breaks Ivib.  Ivib is integrated.  -Matthew Lane
+      #ivib := TextMenuItem()
+      #ivib.set_label("Ivib")
+      #ivib.connect(self, "on_ivib", ACTION_EVENT)
+      #menu_1.add(ivib)
       exit_menu_item := TextMenuItem()
       exit_menu_item.set_label("Exit")
       exit_menu_item.connect(self, "on_exit", ACTION_EVENT)

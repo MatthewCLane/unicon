@@ -326,6 +326,11 @@ class UIDE : Dialog(
 	                Key_F10:   ""
 	                Key_F11:   ""
 	                Key_F12:  ide_handle_exit()
+                  #Handle Copy/Cut/Paste/Find - Matthew Lane
+                  "\^c" :  ide_on_copy_btn(ev)
+                  "\^x" :  ide_on_cut_btn(ev)
+                  "\^v" :  ide_on_paste_btn(ev)
+                  "\^f" :  ide_on_find_btn(ev)
 	     }
    end
 
@@ -432,6 +437,26 @@ class UIDE : Dialog(
 
    method change(e)
 #      write("The tabset selection changed.")
+   end
+
+   #Handle copy - Matthew Lane
+   method ide_on_copy_btn(ev)
+      ide.on_copy_btn(ev)
+   end
+
+   #Handle cut - Matthew Lane
+   method ide_on_cut_btn(ev)
+      ide.on_cut_btn(ev)
+   end
+
+   #Handle paste - Matthew Lane
+   method ide_on_paste_btn(ev)
+      ide.on_paste_btn(ev)
+   end
+
+   #Handle find - Matthew Lane
+   method ide_on_find_btn(ev)
+      ide.on_find_btn(ev)
    end
 
    method setup()

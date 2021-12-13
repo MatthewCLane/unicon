@@ -21,8 +21,7 @@ global targs,browser,
    opened_files_set,
    tab_label,
    fileCompiled, overwrite,
-   lst, ide, file_contents, dialogFor,
-   ivib_maindialogwindow
+   lst, ide, file_contents, dialogFor
 
 #
 # Class IDE
@@ -1156,16 +1155,16 @@ $endif
    end
 
    method on_copy_btn(ev)
-      CurrentEditBox().handle_copy(ev)
+      uidlog.FileTabSet.CurrentEditBox().handle_copy(ev)
    end
 
    method on_cut_btn(ev)
-      CurrentEditBox().handle_cut(ev)
+      uidlog.FileTabSet.CurrentEditBox().handle_cut(ev)
       modified := 1
    end
 
    method on_paste_btn(ev)
-      CurrentEditBox().handle_paste(ev)
+      uidlog.FileTabSet.CurrentEditBox().handle_paste(ev)
       modified := 1
    end
 
@@ -1308,46 +1307,21 @@ $endif
       modified := filefound := &null
    end
 
-   #
+   # Disabling this as it breaks Ivib. - Matthew Lane
    # IVIB
    #
-   method on_ivib(ev)
-      local L := [1], my_ui
-      if CurrentTabItem().label==="Untitled" then {
-	       #system("ivib " || \tab_label || "&", L) | uidlog.MsgBox.set_contents(L)
-         #write("Prior to Ivib Creation - If")
-         ivib_maindialogwindow := Main()
-         ivib_maindialogwindow.show_modal()
-         #We could open a "scratch" of ivib but that may be useless.
-         #L[1] := "Untitled"
-         #ivib_maindialogwindow.custom_show()
-	       #write("Ivib Created - If")
-	    }
-      else if CurrentTabItem().label==="scratch" then {
-	       #if not system("ivib &", L) then
-            #uidlog.MsgBox.set_contents(["System Failed"])
-	       #write("Prior to Ivib Creation - Else If")
-	       ivib_maindialogwindow := Main()
-         ivib_maindialogwindow.show_modal()
-#	       #write("Ivib Created - Else If")
-         #This would open ivib with "scratch"
-         #Also this breaks ivib because of the args.
-         #We could open a "scratch" of ivib but that may be useless.
-         #L[1] := "scratch"
-         #ivib_maindialogwindow.custom_show()
-         }
-      else {
-	       #if not system("ivib " || CurrentTabItem().label || "&", L) then
-            #uidlog.MsgBox.set_contents(["System Failed"])
-         #write("Prior Ivib Creation - Else")
-         ivib_maindialogwindow := Main(my_ui := self)
-         L[1] := CurrentTabItem().label
-         ivib_maindialogwindow.custom_show(L)
-         #write("Ivib Created - Else")
-         #ivib_maindialogwindow.custom_show(CurrentTabItem().label || L)
-	     }
-       updatefile(CurrentTabItem().label)
-   end
+   #method on_ivib(ev)
+   #   local L := []
+    #  if CurrentTabItem().label==="Untitled" then {
+    #   system("ivib " || \tab_label, L) | uidlog.MsgBox.set_contents(L)
+    #   handle_closefile()
+    #   handle_openfile( , tab_label)
+    #  }
+    #  else {
+    #    if not system("ivib " || CurrentTabItem().label, L) then
+    #        uidlog.MsgBox.set_contents(["System Failed"])
+    #  }
+   #end
 
    #
    # Update file method: Update IDE file to show changes from ivib.

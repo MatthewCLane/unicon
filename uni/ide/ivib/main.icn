@@ -105,7 +105,6 @@ end
 $define CANVAS_SURROUND 30
 #
 class Main : CommonDialog (
-   my_ui,                   # Was this opened from UI?
    quit,                    # Quit function
    about,                   # Program version info
    bg,                      # Button group of tool bar buttons
@@ -708,11 +707,8 @@ class Main : CommonDialog (
          #
          # Set modified flag of all in undo/redo buffer
          every (!self.undo_list | !self.redo_list).modified := 1
-         #If opened from UI tell UI to reload file.
-         if \my_ui then
-              my_ui.updatefile(self.canvas.filename)
-         }
-         else {
+      }
+      else {
          c := self.canvas.gen_code()
          c.output_code(self.canvas.filename) | fail
          self.canvas.clear_modified()
@@ -724,10 +720,6 @@ class Main : CommonDialog (
          # Clear new flag of all in undo/redo buffer
          every (!self.undo_list | !self.redo_list).new_file_flag := &null
          self.canvas.new_file_flag := &null
-         #If opened from UI tell UI to reload file.
-         if \my_ui then {
-                my_ui.updatefile(self.canvas.filename)
-         }
       }
       return
    end
